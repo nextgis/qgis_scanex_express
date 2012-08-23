@@ -1,0 +1,8 @@
+<RCC>
+  <qresource>
+    <file>icons/scanexexpress.png</file>
+    <file>icons/basic_coverage.png</file>
+    <file>icons/add_layers.png</file>
+    <file>icons/about.png</file>
+  </qresource>
+</RCC>
