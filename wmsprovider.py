@@ -32,6 +32,265 @@ from qgis.core import *
 
 DEFAULT_LATLON_CRS = "CRS:84"
 
+class QgsWmsOnlineResourceAttribute:
+  self.xlinkHref = QString()
+
+class QgsWmsGetProperty:
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+
+class QgsWmsPostProperty:
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+
+class QgsWmsHttpProperty:
+  self.get = QgsWmsGetProperty()
+  self.post = QgsWmsPostProperty()
+
+class QgsWmsDcpTypeProperty:
+  self.http = QgsWmsHttpProperty()
+
+class QgsWmsOperationType:
+  self.format = QStringList()
+  self.dcpType = []
+  self.allowedEncodings = QStringList()
+
+class QgsWmsRequestProperty:
+  self.getMap = QgsWmsOperationType()
+  self.getFeatureInfo = QgsWmsOperationType()
+  self.getTile = QgsWmsOperationType()
+
+class QgsWmsExceptionProperty:
+  self.format = QStringList()
+
+class QgsWmsContactPersonPrimaryProperty:
+  self.contactPerson = QString()
+  self.contactOrganization = QString()
+
+class QgsWmsContactAddressProperty:
+  self.addressType = QString()
+  self.address = QString()
+  self.city = QString()
+  self.stateOrProvince = QString()
+  self.postCode = QString()
+  self.country = QString()
+
+class QgsWmsContactInformationProperty:
+  self.contactPersonPrimary = QgsWmsContactPersonPrimaryProperty()
+  self.contactPosition = QString()
+  self.contactAddress = QgsWmsContactAddressProperty()
+  self.contactVoiceTelephone = QString()
+  self.contactFacsimileTelephone = QString()
+  self.contactElectronicMailAddress = QString()
+
+class QgsWmsServiceProperty:
+  self.title = QString()
+  self.abstract = QString()
+  self.keywordList = QStringList()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+  self.contactInformation = QgsWmsContactInformationProperty()
+  self.fees = QString()
+  self.accessConstraints = QString()
+  self.layerLimit = -1
+  self.maxWidth = -1
+  self.maxHeight = -1
+
+class QgsWmsBoundingBoxProperty:
+  self.crs = QString()
+  self.box = QgsRectangle()
+  self.resx = 0.0
+  self.resy = 0.0
+
+class QgsWmsDimensionProperty:
+  self.name = QString()
+  self.units = QString()
+  self.unitSymbol = QString()
+  self.defaultValue = QString()
+  self.multipleValues = False
+  self.nearestValue = False
+  self.current = False
+
+class QgsWmsLogoUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+  self.width = -1
+  self.height = -1
+
+class QgsWmsAttributionProperty:
+  self.title = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+  self.logoUrl = QgsWmsLogoUrlProperty()
+
+class QgsWmsLegendUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+  self.width = -1
+  self.height = -1
+
+class QgsWmsStyleSheetUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+
+class QgsWmsStyleUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+
+class QgsWmsStyleProperty:
+  self.name = QString()
+  self.title = QString()
+  self.abstract = QString()
+  self.legendUrl = []
+  self.styleSheetUrl = QgsWmsStyleSheetUrlProperty()
+  self.styleUrl = QgsWmsStyleUrlProperty()
+
+class QgsWmsAuthorityUrlProperty:
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+  self.name = QString()
+
+class QgsWmsIdentifierProperty:
+  self.authority = QString()
+
+class QgsWmsMetadataUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+  self.type = QString()
+
+class QgsWmsDataListUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+
+class QgsWmsFeatureListUrlProperty:
+  self.format = QString()
+  self.onlineResource = QgsWmsOnlineResourceAttribute()
+
+class QgsWmsLayerProperty:
+  self.orderId = -1
+  self.name = QString()
+  self.title = QString()
+  self.abstract = QString()
+  self.keywordList = QStringList()
+  self.crs = QStringList()
+  self.ex_GeographicBoundingBox = QgsRectangle()
+  self.boundingBox = []
+  self.dimension = []
+  self.attribution = QgsWmsAttributionProperty()
+  self.authorityUrl = []
+  self.identifier = []
+  self.metadataUrl = []
+  self.dataListUrl = []
+  self.featureListUrl = []
+  self.style = []
+  self.minimumScaleDenominator = 0.0
+  self.maximumScaleDenominator = 0.0
+  self.layer = []
+
+  self.queryable = False
+  self.cascaded = -1
+  self.opaque = False
+  self.noSubsets = False
+  self.fixedWidth = -1
+  self.fixedHeight = -1
+
+class QgsWmtsTheme:
+  self.identifier = QString()
+  self.title = QString()
+  self.abstract = QString()
+  self.keywords = QStringList()
+  self.subTheme = None
+  self.layerRefs = QStringList()
+
+class QgsWmtsTileMatrix:
+  self.identifier = QString()
+  self.title = QString()
+  self.abstract = QString()
+  self.keywords = QStringList()
+  self.scaleDenom = 0.0
+  self.topLeft = QgsPoint()
+  self.tileWidth = -1
+  self.tileHeight = -1
+  self.matrixWidth = -1
+  self.matrixHeight = -1
+
+class QgsWmtsTileMatrixSet:
+  self.identifier = QString()
+  self.title = QString()
+  self.abstract = QString()
+  self.keywords = QString()
+  self.boundingBox = QString()
+  self.crs = None
+  self.wkScaleSet = None
+  self.tileMatrices = None
+
+class QgsWmtsTileMatrixLimits:
+  self.tileMatrix = -1
+  self.minTileRow = -1
+  self.maxTileRow = -1
+  self.minTileCol = -1
+  self.maxTileCol = -1
+
+class QgsWmtsTileMatrixSetLink:
+  self.tileMatrixSet = None
+  self.limits = None
+
+class QgsWmtsLegendURL:
+  self.format = None
+  self.minScale = None
+  self.maxScale = None
+  self.href = None
+  self.width = None
+  self.height = None
+
+class QgsWmtsStyle:
+  self.identifier = None
+  self.title = None
+  self.abstract = None
+  self.keywords = None
+  self.isDefault = None
+  self.legendURLs = None
+
+class QgsWmtsDimension:
+  self.identifier = None
+  self.title = None
+  self.abstract = None
+  self.keywords = None
+  self.UOM = None
+  self.unitSymbol = None
+  self.defaultValue = None
+  self.current = None
+  self.values = None
+
+class QgsWmtsTileLayer:
+  self.tileMode = None
+  self.identifier = None
+  self.title = None
+  self.abstract = None
+  self.keywords = None
+  self.boundingBox = None
+  self.formats = None
+  self.infoFormats = None
+  self.defaultStyle = None
+  self.dimensions = None
+  self.styles = None
+  self.setLinks = None
+
+  self.getTileURLs = None
+  self.getFeatureInfoURLs = None
+
+class QgsWmsCapabilityProperty:
+  self.request = None
+  self.exception = None
+  self.layer = None
+
+  self.tileLayers = None
+  self.tileMatrixSets = None
+
+class QgsWmsCapabilitiesProperty:
+  self.service = None
+  self.capability = None
+  self.version = None
+
+class QgsWmsSupportedFormat:
+  self.format = None
+  self.label = None
+
 class WmsProvider:
   def __init__( self, uri):
     self.httpUri = uri
@@ -251,7 +510,49 @@ class WmsProvider:
       n1 = n1.nextSibling()
 
   def parseCapability( self, e ):
-    pass
+    n1 = e.firstChild()
+    while not n1.isNull():
+      e1 = n1.toElement()
+      if e1.isNull():
+        continue
+
+      tagName = e1.tagName()
+      if tagName.startsWith( "wms:" ):
+        tagName = tagName.mid( 4 )
+
+      if tagName == "Request":
+        self.parseRequest( e1 )
+      elif tagName == "Layer":
+        self.parseLayer( e1 )
+      elif tagName == "VendorSpecificCapabilities":
+        for i in xrange( e1.childNodes().size() ):
+          n2 = e1.childNodes().item( i )
+          e2 = n2.toElement()
+          tName = e2.tagName()
+          if tName.startsWith( "wms:" ):
+            tName = tName.mid( 4 )
+
+          if tName == "TileSet":
+            self.parseTileSetProfile( e2 )
+      elif tagName == "ows:Operation":
+        name = e1.attribute( "name" )
+        get = n1.firstChildElement( "ows:DCP" ).firstChildElement( "ows:HTTP" ).firstChildElement( "ows:Get" )
+        href = get.attribute( "xlink:href" )
+
+        dcp = QgsWmsDcpTypeProperty()
+        dcp.http.get.onlineResource.xlinkHref = href
+
+        ot = QgsWmsOperationType()
+        if href.isNull():
+          print "http get missing from ows:Operation '%s'" % unicode(name)
+        elif name == "GetTile":
+          self.capabilityProperty.request.getTile = dcp
+        elif name == "GetFeatureInfo":
+          self.capabilityProperty.request.getFeatureInfo = dcp
+        else:
+          print "ows:Operation %s ignored" % unicode( name )
+
+      n1 = n1.nextSibling()
 
   def parseWMTSContents( self, e ):
     pass
