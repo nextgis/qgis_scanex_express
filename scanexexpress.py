@@ -32,6 +32,7 @@ from qgis.core import *
 
 from __init__ import version
 
+import addlayersdialog
 import aboutdialog
 
 import resources_rc
@@ -113,10 +114,9 @@ class ScanexExpressPlugin:
     pass
 
   def userLayers( self ):
-    #dlg = addlayersdialog.AddLayersDialog( self.iface )
-    #dlg.show()
-    #dlg.exec_()
-    pass
+    dlg = addlayersdialog.AddLayersDialog( self.iface )
+    dlg.show()
+    dlg.exec_()
 
   def about( self ):
     dlg = aboutdialog.AboutDialog()
