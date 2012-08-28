@@ -32,6 +32,8 @@ from qgis.core import *
 
 from ui_addlayersdialogbase import Ui_Dialog
 
+import wmsprovider2
+
 class AddLayersDialog( QDialog, Ui_Dialog ):
   def __init__( self, iface ):
     QDialog.__init__( self )
@@ -107,11 +109,18 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       QMessageBox.warning( self, self.tr( "Missed API key" ), self.tr( "Please enter your API key and try again" ) )
       return
 
+    # save settings
+    settings = QSettings( "NextGIS", "ScanexExpress" )
+
+    settings.setValue( "apiKey", self.leApiKey.text() )
+    settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
+
+    # go-go-go
     uri = QgsDataSourceURI()
-    url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apikey )
+    url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     uri.setParam( "url", url  )
 
-    provider = wmsprovider.WmsProvider( uri.encodedUri() )
+    provider = wmsprovider2.WmsProvider( uri.encodedUri() )
 
   def addLayers( self ):
     pass
