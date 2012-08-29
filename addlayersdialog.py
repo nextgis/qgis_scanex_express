@@ -116,11 +116,15 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
 
     # go-go-go
+    print "INIT DATASOURCE"
     uri = QgsDataSourceURI()
     url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     uri.setParam( "url", url  )
 
+    print "CREATE PROVIDER"
     provider = wmsprovider2.WmsProvider( uri.encodedUri() )
+
+    print "GET LAYERS", provider.supportedLayers()
 
   def addLayers( self ):
     pass

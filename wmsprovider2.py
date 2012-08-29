@@ -65,13 +65,12 @@ class WmsProvider( QObject ):
     return uri
 
   def supportedLayers( self ):
-    if not retrieveServerCapabilities():
+    if not self.retrieveServerCapabilities():
       return False
 
     return True
 
   def retrieveServerCapabilities( self ):
-    print "load capabilities"
     if self.httpCapabilitiesResponse.isNull():
       url = self.baseUrl
       if not url.contains( "SERVICE=WMTS" ) and not url.contains( "/WMTSCapabilities.xml" ):
@@ -79,8 +78,7 @@ class WmsProvider( QObject ):
 
       self.error = ""
 
-      request = QNetworkRequest( url )
-      self.setAuthorization( request )
+      request = QNetworkRequest( QUrl( url ) )
       request.setAttribute( QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.PreferNetwork )
       request.setAttribute( QNetworkRequest.CacheSaveControlAttribute, True )
 
@@ -91,6 +89,26 @@ class WmsProvider( QObject ):
 
       while self.capabilitiesReply:
         QCoreApplication.processEvents( QEventLoop.ExcludeUserInputEvents )
+
+      if self.httpCapabilitiesResponse.isEmpty():
+        self.error = self.tr( "empty capabilities document" )
+        return False
+
+      if self.httpCapabilitiesResponse.startsWith( "<html>" ) or
+         self.httpCapabilitiesResponse.startsWith( "<HTML>" ):
+        print "starts with <html>"
+        self.error = self.httpCapabilitiesResponse
+        return False
+
+      # converting to DOM
+      print "converting to DOM"
+
+      if not self.parseCapabilitiesDom():
+        self.error += self.tr( "\nTried URL: %1" ).arg( url )
+        print "!domOK"
+        return False
+
+    return True
 
   def capabilitiesReplyProgress( self, bytesReceived, bytesTotal ):
     bt = QString( "unknown number of" )
@@ -103,3 +121,77 @@ class WmsProvider( QObject ):
   def capabilitiesReplyFinished( self ):
     if self.capabilitiesReply.error() == QNetworkReply.NoError:
       print "reply ok"
+
+      redirect = self.capabilitiesReply.attribute( QNetworkRequest.RedirectionTargetAttribute )
+      if not redirect.isNull():
+        print "Capabilities request redirected"
+        #self.statusChanged.emit( tr( "Capabilities request redirected." ) )
+
+        request = QNetworkRequest( redirect.toUrl() )
+        request.setAttribute( QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.PreferNetwork )
+        request.setAttribute( QNetworkRequest.CacheSaveControlAttribute, True )
+
+        self.capabilitiesReply.deleteLater()
+        self.capabilitiesReply = QgsNetworkAccessManager.instance()->get( request )
+
+        self.capabilitiesReply.finished.connect( self.capabilitiesReplyFinished )
+        self.capabilitiesReply.downloadProgress.connect( self.capabilitiesReplyProgress )
+        return
+
+      self.httpCapabilitiesResponse = self.capabilitiesReply.readAll()
+
+      if self.httpCapabilitiesResponse.isEmpty():
+        self.error = self.tr( "empty of capabilities: %1" ).arg( self.capabilitiesReply.errorString() )
+    else:
+      self.error = self.tr( "Download of capabilities failed: %1" ).arg( self.capabilitiesReply.errorString() )
+      self.httpCapabilitiesResponse.clear()
+
+    self.capabilitiesReply.deleteLater()
+    self.capabilitiesReply = None
+
+  def parseCapabilitiesDom( self ):
+    self.capabilitiesDom = QDomDocument()
+
+    contentSuccess, errorMsg, errorLine, errorColumn = self.capabilitiesDom.setContent( self.httpCapabilitiesResponse, False )
+    if not contentSuccess:
+      self.error = QString( "Could not get WMS capabilities: %1 at line %2 column %3\nThis is probably due to an incorrect WMS Server URL.\nResponse was:\n\n%4" )
+                   .arg( errorMsg )
+                   .arg( errorLine )
+                   .arg( errorColumn )
+                   .arg( QString( self.httpCapabilitiesResponse ) )
+      return False
+
+    docElem = self.capabilitiesDom.documentElement()
+
+    # assert that the DTD is what we expected (i.e. a WMS Capabilities document)
+    print "testing tagName", docElem.tagName()
+
+    if docElem.tagName() != "WMS_Capabilities"  and
+       docElem.tagName() != "WMT_MS_Capabilities" and
+       docElem.tagName() != "Capabilities":
+      self.error = QString( "Could not get WMS capabilities in the expected format (DTD): no %1 or %2 found.\nThis might be due to an incorrect WMS Server URL.\nTag:%3\nResponse was:\n%4" )
+                   .arg( "WMS_Capabilities" )
+                   .arg( "WMT_MS_Capabilities" )
+                   .arg( docElem.tagName() )
+                   .arg( QString( self.httpCapabilitiesResponse ) )
+      return False
+
+    # start walking through XML
+    n = docElem.firstChild()
+    while not n.isNull():
+      if e.tagName() in [ "Service", "ows:ServiceProvider", "ows:ServiceIdentification" ]:
+        print "  Service"
+        #self.parseService( e )
+      elif e.tagName() in [ "Capability", "ows:OperationsMetadata" ]:
+        print "  Capability"
+        self.parseCapability( e )
+      elif e.tagName() in [ "Contents" ]:
+        print "  Contents"
+        #self.parseWMTSContents( e )
+
+      n = n.nextSibling()
+
+    return True
+
+  def parseCapability( self, e ):
+    pass
