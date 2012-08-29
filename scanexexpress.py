@@ -111,7 +111,10 @@ class ScanexExpressPlugin:
     self.iface.removeWebToolBarIcon( self.loadUserLayers )
 
   def baseLayers( self ):
-    pass
+    url = "crs=EPSG:3395&featureCount=10&format=image/png&layers=C9458F2DCB754CEEACC54216C7D1EB0A&styles=&url=http://maps.kosmosnimki.ru/TileService.ashx/apikeySA7F1UIEY0"
+    layer = QgsRasterLayer( url, u"Базовое покрытие Kosmosnimki.Ru", "wms" )
+
+    QgsMapLayerRegistry.instance().addMapLayer( layer )
 
   def userLayers( self ):
     dlg = addlayersdialog.AddLayersDialog( self.iface )
