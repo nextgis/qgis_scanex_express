@@ -116,7 +116,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
 
     # go-go-go
-    print "INIT DATASOURCE"
     uri = QgsDataSourceURI()
     url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     uri.setParam( "url", url  )
@@ -124,7 +123,22 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     print "CREATE PROVIDER"
     provider = wmsprovider2.WmsProvider( uri.encodedUri() )
 
-    print "GET LAYERS", provider.supportedLayers()
+    if not provider.supportedLayers():
+      #self.showError( provider.error )
+      pass
+
+    # TODO: populate layers
 
   def addLayers( self ):
     pass
+
+  def showError( self, provider ):
+    mv = QgsMessageViewer( self )
+    mv.setWindowTitle( provider.errorCaption )
+
+    if provider.errorFormat == "text/html":
+      mv.setMessageAsHtml( provider.error )
+    else:
+      mv.setMessageAsPlainText( self.tr( "Could not understand the response. The provider said:\n%2" ).arg( provider.error ) )
+
+    mv.showMessage( True )

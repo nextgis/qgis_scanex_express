@@ -26,8 +26,9 @@
 #******************************************************************************
 
 from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
 from PyQt4.QtGui import *
+from PyQt4.QtXml import *
+from PyQt4.QtNetwork import *
 
 from qgis.core import *
 
@@ -39,8 +40,10 @@ class WmsProvider( QObject ):
 
     self.httpUri = None
     self.baseUrl = None
+    self.error = QString()
     self.httpCapabilitiesResponse = QByteArray()
     self.capabilitiesReply = None
+    self.layersSupported = []
 
     self.valid = True
 
@@ -48,7 +51,7 @@ class WmsProvider( QObject ):
 
   def parseUri( self, uriString ):
     uri = QgsDataSourceURI()
-    uri.setEncodedUri( uriString )
+    uri.setEncodedUri( unicode( uriString ) )
 
     self.httpUri = uri.param( "url" )
     self.baseUrl = self.prepareUri( self.httpUri )
@@ -68,15 +71,16 @@ class WmsProvider( QObject ):
     if not self.retrieveServerCapabilities():
       return False
 
+    #for l in self.layersSupported:
+    #  print l
     return True
 
   def retrieveServerCapabilities( self ):
+    print "retrieveServerCapabilities"
     if self.httpCapabilitiesResponse.isNull():
       url = self.baseUrl
       if not url.contains( "SERVICE=WMTS" ) and not url.contains( "/WMTSCapabilities.xml" ):
         url += "SERVICE=WMS&REQUEST=GetCapabilities"
-
-      self.error = ""
 
       request = QNetworkRequest( QUrl( url ) )
       request.setAttribute( QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.PreferNetwork )
@@ -92,11 +96,13 @@ class WmsProvider( QObject ):
 
       if self.httpCapabilitiesResponse.isEmpty():
         self.error = self.tr( "empty capabilities document" )
+        if self.error.isEmpty():
+          self.errorFormat = "text/plain"
+          self.error = self.tr( "empty capabilities document" )
         return False
 
-      if self.httpCapabilitiesResponse.startsWith( "<html>" ) or
-         self.httpCapabilitiesResponse.startsWith( "<HTML>" ):
-        print "starts with <html>"
+      if self.httpCapabilitiesResponse.startsWith( "<html>" ) or self.httpCapabilitiesResponse.startsWith( "<HTML>" ):
+        self.errorFormat = "text/html"
         self.error = self.httpCapabilitiesResponse
         return False
 
@@ -132,7 +138,7 @@ class WmsProvider( QObject ):
         request.setAttribute( QNetworkRequest.CacheSaveControlAttribute, True )
 
         self.capabilitiesReply.deleteLater()
-        self.capabilitiesReply = QgsNetworkAccessManager.instance()->get( request )
+        self.capabilitiesReply = QgsNetworkAccessManager.instance().get( request )
 
         self.capabilitiesReply.finished.connect( self.capabilitiesReplyFinished )
         self.capabilitiesReply.downloadProgress.connect( self.capabilitiesReplyProgress )
@@ -141,8 +147,10 @@ class WmsProvider( QObject ):
       self.httpCapabilitiesResponse = self.capabilitiesReply.readAll()
 
       if self.httpCapabilitiesResponse.isEmpty():
+        self.errorFormat = "text/plain"
         self.error = self.tr( "empty of capabilities: %1" ).arg( self.capabilitiesReply.errorString() )
     else:
+      self.errorFormat = "text/plain"
       self.error = self.tr( "Download of capabilities failed: %1" ).arg( self.capabilitiesReply.errorString() )
       self.httpCapabilitiesResponse.clear()
 
@@ -152,13 +160,12 @@ class WmsProvider( QObject ):
   def parseCapabilitiesDom( self ):
     self.capabilitiesDom = QDomDocument()
 
+    # convert completed document into a Dom
     contentSuccess, errorMsg, errorLine, errorColumn = self.capabilitiesDom.setContent( self.httpCapabilitiesResponse, False )
     if not contentSuccess:
-      self.error = QString( "Could not get WMS capabilities: %1 at line %2 column %3\nThis is probably due to an incorrect WMS Server URL.\nResponse was:\n\n%4" )
-                   .arg( errorMsg )
-                   .arg( errorLine )
-                   .arg( errorColumn )
-                   .arg( QString( self.httpCapabilitiesResponse ) )
+      self.errorCaption = self.tr( "Dom Exception" )
+      self.errorFormat = "text/plain"
+      self.error = QString( "Could not get WMS capabilities: %1 at line %2 column %3\nThis is probably due to an incorrect WMS Server URL.\nResponse was:\n\n%4" ).arg( errorMsg ).arg( errorLine ).arg( errorColumn ).arg( QString( self.httpCapabilitiesResponse ) )
       return False
 
     docElem = self.capabilitiesDom.documentElement()
@@ -166,19 +173,16 @@ class WmsProvider( QObject ):
     # assert that the DTD is what we expected (i.e. a WMS Capabilities document)
     print "testing tagName", docElem.tagName()
 
-    if docElem.tagName() != "WMS_Capabilities"  and
-       docElem.tagName() != "WMT_MS_Capabilities" and
-       docElem.tagName() != "Capabilities":
-      self.error = QString( "Could not get WMS capabilities in the expected format (DTD): no %1 or %2 found.\nThis might be due to an incorrect WMS Server URL.\nTag:%3\nResponse was:\n%4" )
-                   .arg( "WMS_Capabilities" )
-                   .arg( "WMT_MS_Capabilities" )
-                   .arg( docElem.tagName() )
-                   .arg( QString( self.httpCapabilitiesResponse ) )
+    if docElem.tagName() not in [ "WMS_Capabilities", "WMT_MS_Capabilities", "Capabilities" ]:
+      self.errorCaption = self.tr( "Dom Exception" )
+      self.errorFormat = "text/plain"
+      self.error = QString( "Could not get WMS capabilities in the expected format (DTD): no %1 or %2 found.\nThis might be due to an incorrect WMS Server URL.\nTag:%3\nResponse was:\n%4" ).arg( "WMS_Capabilities" ).arg( "WMT_MS_Capabilities" ).arg( docElem.tagName() ).arg( QString( self.httpCapabilitiesResponse ) )
       return False
 
     # start walking through XML
     n = docElem.firstChild()
     while not n.isNull():
+      e = n.toElement()
       if e.tagName() in [ "Service", "ows:ServiceProvider", "ows:ServiceIdentification" ]:
         print "  Service"
         #self.parseService( e )
@@ -194,4 +198,102 @@ class WmsProvider( QObject ):
     return True
 
   def parseCapability( self, e ):
-    pass
+    n1 = e.firstChild()
+    while not n1.isNull():
+      e1 = n1.toElement()
+      if e1.isNull():
+        continue
+
+      tagName = e1.tagName()
+      if tagName.startsWith( "wms:" ):
+        tagName = tagName.mid( 4 )
+
+      print "  ", e1.tagName()
+
+      if tagName == "Request":
+        print "  Request"
+        #self.parseRequest( e1 )
+      elif tagName == "Layer":
+        print "  Layer"
+        lay = self.parseLayer( e1 )
+        self.layersSupported.append( lay )
+      elif tagName == "VendorSpecificCapabilities":
+        print "  Vendor Capabilities"
+      elif tagName == "ows:Operation":
+        print "  Operation"
+
+      n1 = n1.nextSibling()
+
+  def parseLayer( self, e ):
+    print "parseLayer"
+    layer = dict()
+    layer[ "layer" ] = []
+
+    n1 = e.firstChild()
+    while not n1.isNull():
+      e1 = n1.toElement()
+      first = True
+      if not e1.isNull():
+        tagName = e1.tagName()
+        if tagName.startsWith( "wms:" ):
+          tagName = tagName.mid( 4 )
+
+        if tagName == "Layer":
+          print "      Nested layer."
+          layer[ "layer" ].append( self.parseLayer( e1 ) )
+
+        elif tagName == "Name":
+          layer[ "name" ] = e1.text()
+        elif tagName == "Title":
+          layer[ "title" ] = e1.text()
+        elif tagName == "Abstract":
+          layer[ "abstract" ] = e1.text()
+        elif tagName == "Description":
+          layer[ "description" ] = e1.text()
+        elif tagName == "CreateDate":
+          layer[ "createDate" ] = e1.text()
+        elif tagName == "Copyright":
+          layer[ "copyright" ] = e1.text()
+        elif tagName == "KeywordList":
+          pass
+        elif tagName in [ "SRS", "CRS" ]:
+          print "SRS", e1.text().split( QRegExp( "\\s+" ) )
+          for srs in e1.text().split( QRegExp( "\\s+" ) ):
+            #print "***", srs
+            if first:
+              layer[ "crs" ] = [ srs ]
+              first = False
+            lst = layer[ "crs" ]
+            lst.append( srs )
+            layer[ "crs" ] = lst
+            print layer[ "crs" ]
+        elif tagName == "LatLonBoundingBox":
+          pass
+        elif tagName == "EX_GeographicBoundingBox":
+          pass
+        elif tagName == "BoundingBox":
+          pass
+        elif tagName == "Dimension":
+          pass
+        elif tagName == "Attribution":
+          pass
+        elif tagName == "AuthorityURL":
+          pass
+        elif tagName == "Identifier":
+          pass
+        elif tagName == "MetadataURL":
+          pass
+        elif tagName == "DataURL":
+          pass
+        elif tagName == "FeatureListURL":
+          pass
+        elif tagName == "Style":
+          pass
+        elif tagName == "MinScaleDenominator":
+          pass
+        elif tagName == "MaxScaleDenominator":
+          pass
+
+      n1 = n1.nextSibling()
+
+    return layer
