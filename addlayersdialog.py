@@ -29,6 +29,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from qgis.core import *
+from qgis.gui import *
 
 from ui_addlayersdialogbase import Ui_Dialog
 
@@ -41,6 +42,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.setupUi( self )
 
     self.crs = ""
+    self.crss = []
 
     self.btnAdd = QPushButton( self.tr( "Add" ) )
     self.btnAdd.setToolTip( self.tr( "Add selected layers to map" ) )
@@ -51,6 +53,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.btnConnect.clicked.connect( self.connectToServer )
     self.btnGetKey.clicked.connect( self.getApiKey )
     self.btnChangeCRS.clicked.connect( self.changeCrs )
+    self.lstLayers.itemSelectionChanged.connect( self.selectionChanged )
 
     self.manageGui()
 
@@ -62,13 +65,15 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     # set the current project CRS if available
     currentCRS = QgsProject.instance().readNumEntry( "SpatialRefSys", "/ProjectCRSID", -1 )[0]
-    print currentCRS
     if currentCRS != -1:
       currentRefSys = QgsCoordinateReferenceSystem( currentCRS, QgsCoordinateReferenceSystem.InternalCrsId )
       if currentRefSys.isValid():
         self.crs = currentRefSys.authid()
 
     self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
+
+    # disable change CRS button
+    self.btnChangeCRS.setEnabled( False )
 
   def reject( self ):
     QDialog.reject( self )
@@ -123,8 +128,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     provider = wmsprovider.WmsProvider( uri.encodedUri() )
 
     if not provider.supportedLayers():
-      #self.showError( provider.error )
-      print provider.error
+      self.showError( provider.error )
       pass
 
     items = dict()
@@ -138,6 +142,10 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     for layer in layers:
       names = [ layer[ "name" ], layer[ "title" ], layer[ "abstract" ] ]
       item = self.createItem( layer[ "orderId" ], names, items, layerParents, layerParentNames )
+
+      item.setData( 0, Qt.UserRole + 0, layer[ "name" ] )
+      item.setData( 0, Qt.UserRole + 1, "" )
+      item.setData( 0, Qt.UserRole + 2, layer[ "crs" ] )
 
     if self.lstLayers.topLevelItemCount() == 1:
       self.lstLayers.expandItem( self.lstLayers.topLevelItem( 0 ) )
@@ -175,3 +183,44 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     items[ layerId ] = item
 
     return item
+
+  def selectionChanged( self ):
+    currentSelection = self.lstLayers.selectedItems()
+
+    self.crss = set()
+
+    layers = []
+
+    for item in currentSelection:
+      layerName = item.data( 0, Qt.UserRole + 0 ).toString()
+
+      if layerName.isEmpty():
+        pass
+      else:
+        layers.append( layerName )
+        if len( self.crss ) == 0:
+          self.crss = set( item.data( 0, Qt.UserRole + 2 ).toStringList() )
+        else:
+          self.crss.intersection( set( item.data( 0, Qt.UserRole + 2 ).toStringList() ) )
+
+    self.btnChangeCRS.setDisabled( True if len( self.crss ) == 0 else False )
+
+    if len( layers ) > 0 and len( self.crss ) > 0:
+      defaultCRS = ""
+      notFound = True
+      for crs in self.crss:
+        if crs.lower() == self.crs.lower():
+          notFound = False
+          break
+
+        if crs.lower() == self.crss[0].lower():
+          defaultCRS = crs
+
+        if crs.lower() == QGis.GEO_EPSG_CRS_AUTHID.lower():
+          defaultCRS = crs
+
+      if notFound:
+        self.crs = defaultCRS
+        self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
+
+      # TODO: update buttons
