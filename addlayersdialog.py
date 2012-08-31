@@ -32,7 +32,7 @@ from qgis.core import *
 
 from ui_addlayersdialogbase import Ui_Dialog
 
-import wmsprovider2
+import wmsprovider
 
 class AddLayersDialog( QDialog, Ui_Dialog ):
   def __init__( self, iface ):
