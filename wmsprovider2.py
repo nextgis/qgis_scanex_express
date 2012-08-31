@@ -41,9 +41,12 @@ class WmsProvider( QObject ):
     self.httpUri = None
     self.baseUrl = None
     self.error = QString()
+    self.layerCount = -1
     self.httpCapabilitiesResponse = QByteArray()
     self.capabilitiesReply = None
     self.layersSupported = []
+    self.layerParents = dict()
+    self.layerParentNames = dict()
 
     self.valid = True
 
@@ -71,8 +74,6 @@ class WmsProvider( QObject ):
     if not self.retrieveServerCapabilities():
       return False
 
-    #for l in self.layersSupported:
-    #  print l
     return True
 
   def retrieveServerCapabilities( self ):
@@ -185,13 +186,11 @@ class WmsProvider( QObject ):
       e = n.toElement()
       if e.tagName() in [ "Service", "ows:ServiceProvider", "ows:ServiceIdentification" ]:
         print "  Service"
-        #self.parseService( e )
       elif e.tagName() in [ "Capability", "ows:OperationsMetadata" ]:
         print "  Capability"
         self.parseCapability( e )
       elif e.tagName() in [ "Contents" ]:
         print "  Contents"
-        #self.parseWMTSContents( e )
 
       n = n.nextSibling()
 
@@ -212,11 +211,9 @@ class WmsProvider( QObject ):
 
       if tagName == "Request":
         print "  Request"
-        #self.parseRequest( e1 )
       elif tagName == "Layer":
         print "  Layer"
-        lay = self.parseLayer( e1 )
-        self.layersSupported.append( lay )
+        self.parseLayer( e1 )
       elif tagName == "VendorSpecificCapabilities":
         print "  Vendor Capabilities"
       elif tagName == "ows:Operation":
@@ -224,9 +221,11 @@ class WmsProvider( QObject ):
 
       n1 = n1.nextSibling()
 
-  def parseLayer( self, e ):
-    print "parseLayer"
+  def parseLayer( self, e, parent = None ):
     layer = dict()
+    self.layerCount += 1
+    layer[ "orderId" ] = self.layerCount
+    layer[ "crs" ] = []
     layer[ "layer" ] = []
 
     n1 = e.firstChild()
@@ -240,7 +239,7 @@ class WmsProvider( QObject ):
 
         if tagName == "Layer":
           print "      Nested layer."
-          layer[ "layer" ].append( self.parseLayer( e1 ) )
+          layer[ "layer" ].append( self.parseLayer( e1, layer[ "orderId" ] ) )
 
         elif tagName == "Name":
           layer[ "name" ] = e1.text()
@@ -248,25 +247,11 @@ class WmsProvider( QObject ):
           layer[ "title" ] = e1.text()
         elif tagName == "Abstract":
           layer[ "abstract" ] = e1.text()
-        elif tagName == "Description":
-          layer[ "description" ] = e1.text()
-        elif tagName == "CreateDate":
-          layer[ "createDate" ] = e1.text()
-        elif tagName == "Copyright":
-          layer[ "copyright" ] = e1.text()
         elif tagName == "KeywordList":
           pass
         elif tagName in [ "SRS", "CRS" ]:
-          print "SRS", e1.text().split( QRegExp( "\\s+" ) )
           for srs in e1.text().split( QRegExp( "\\s+" ) ):
-            #print "***", srs
-            if first:
-              layer[ "crs" ] = [ srs ]
-              first = False
-            lst = layer[ "crs" ]
-            lst.append( srs )
-            layer[ "crs" ] = lst
-            print layer[ "crs" ]
+            layer[ "crs" ].append( srs )
         elif tagName == "LatLonBoundingBox":
           pass
         elif tagName == "EX_GeographicBoundingBox":
@@ -296,4 +281,14 @@ class WmsProvider( QObject ):
 
       n1 = n1.nextSibling()
 
-    return layer
+    if parent is not None:
+      self.layerParents[ layer[ "orderId" ] ] = parent
+
+    if len( layer[ "layer" ] ) > 0:
+      name = layer[ "name" ] if "name" in layer else ""
+      title = layer[ "title" ] if "title" in layer else ""
+      abstract = layer[ "abstract" ] if "abstract" in layer else ""
+      self.layerParentNames[ layer[ "orderId" ] ] = [ name, title, abstract ]
+
+    if "name" in layer:
+      self.layersSupported.append( layer )

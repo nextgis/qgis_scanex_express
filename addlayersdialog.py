@@ -120,14 +120,27 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     uri.setParam( "url", url  )
 
-    print "CREATE PROVIDER"
     provider = wmsprovider2.WmsProvider( uri.encodedUri() )
 
     if not provider.supportedLayers():
       #self.showError( provider.error )
+      print provider.error
       pass
 
-    # TODO: populate layers
+    items = dict()
+    layers = provider.layersSupported
+    layerParents = provider.layerParents
+    layerParentNames = provider.layerParentNames
+
+    self.lstLayers.clear()
+
+    self.layerAndStyleCount = -1
+    for layer in layers:
+      names = [ layer[ "name" ], layer[ "title" ], layer[ "abstract" ] ]
+      item = self.createItem( layer[ "orderId" ], names, items, layerParents, layerParentNames )
+
+    if self.lstLayers.topLevelItemCount() == 1:
+      self.lstLayers.expandItem( self.lstLayers.topLevelItem( 0 ) )
 
   def addLayers( self ):
     pass
@@ -142,3 +155,23 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       mv.setMessageAsPlainText( self.tr( "Could not understand the response. The provider said:\n%2" ).arg( provider.error ) )
 
     mv.showMessage( True )
+
+  def createItem( self, layerId, names, items, layerParents, layerParentNames ):
+    if layerId in items:
+      return items[ layerId ]
+
+    if layerId in layerParents:
+      parent = layerParents[ layerId ]
+      item = QTreeWidgetItem( self.createItem( parent, layerParentNames[ parent ], items, layerParents, layerParentNames ) )
+    else:
+      item = QTreeWidgetItem( self.lstLayers )
+
+    self.layerAndStyleCount += 1
+    item.setText( 0, QString.number( self.layerAndStyleCount ) )
+    item.setText( 1, names[ 0 ] )
+    item.setText( 2, names[ 1 ] )
+    item.setText( 3, names[ 2 ] )
+
+    items[ layerId ] = item
+
+    return item
