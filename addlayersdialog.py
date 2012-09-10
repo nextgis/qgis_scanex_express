@@ -103,9 +103,10 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     del mySelector
     self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
 
-    # TODO: update layers
-    # TODO: update buttons
+    for i in xrange( self.lstLayers.topLevelItemCount() ):
+      self.enableLayersForCrs( self.lstLayers.topLevelItem( i ) )
 
+    self.updateButtons()
     self.update()
 
   def connectToServer( self ):
@@ -114,13 +115,10 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       QMessageBox.warning( self, self.tr( "Missed API key" ), self.tr( "Please enter your API key and try again" ) )
       return
 
-    # save settings
     settings = QSettings( "NextGIS", "ScanexExpress" )
-
     settings.setValue( "apiKey", self.leApiKey.text() )
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
 
-    # go-go-go
     uri = QgsDataSourceURI()
     url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     uri.setParam( "url", url  )
@@ -149,9 +147,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     if self.lstLayers.topLevelItemCount() == 1:
       self.lstLayers.expandItem( self.lstLayers.topLevelItem( 0 ) )
-
-  def addLayers( self ):
-    pass
 
   def showError( self, provider ):
     mv = QgsMessageViewer( self )
@@ -223,4 +218,25 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
         self.crs = defaultCRS
         self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
 
-      # TODO: update buttons
+      self.updateButtons()
+
+  def enableLayersForCrs( self, item ):
+    layerName = item.data( 0, Qt.UserRole + 0 ).toString()
+
+    if not layerName.isEmpty():
+      disable = not item.data( 0, Qt.UserRole + 2 ).toStringList().contains( self.crs, Qt.CaseInsensitive )
+      item.setDisabled( disable )
+    else:
+      for i in xrange( item.childCount() ):
+        self.enableLayersForCrs( item.child( i ) )
+
+  def updateButtons( self ):
+    if len( self.crss ) == 0:
+      self.btnAdd.setEnabled( False )
+    elif self.crs.isEmpty():
+      self.btnAdd.setEnabled( False )
+    else:
+      self.btnAdd.setEnabled( True )
+
+  def addLayers( self ):
+    pass
