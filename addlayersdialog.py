@@ -193,8 +193,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       layerName = item.data( 0, Qt.UserRole + 0 ).toString()
 
       if layerName.isEmpty():
-        # TODO: add support for groups
-        pass
+        self.layers.extend( self.collectLayers( item ) )
       else:
         self.layers.append( layerName )
         if len( self.crss ) == 0:
@@ -224,6 +223,24 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     self.updateOrderTab( self.layers )
     self.updateButtons()
+
+  def collectLayers( self, item ):
+    layers = []
+    layerName = item.data( 0, Qt.UserRole + 0 ).toString()
+    styleName = item.data( 0, Qt.UserRole + 1 ).toString()
+
+    if layerName.isEmpty(): # this is a group
+      for i in xrange( item.childCount() ):
+        layers.extend( self.collectLayers( item.child( i ) ) )
+    elif styleName.isEmpty(): # this is a layer
+      layers.append( layerName )
+
+      if len( self.crss ) == 0:
+        self.crss = set( item.data( 0, Qt.UserRole + 2 ).toStringList() )
+      else:
+        self.crss.intersection( set( item.data( 0, Qt.UserRole + 2 ).toStringList() ) )
+
+    return layers
 
   def enableLayersForCrs( self, item ):
     layerName = item.data( 0, Qt.UserRole + 0 ).toString()
