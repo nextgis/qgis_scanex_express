@@ -54,6 +54,8 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.btnGetKey.clicked.connect( self.getApiKey )
     self.btnChangeCRS.clicked.connect( self.changeCrs )
     self.lstLayers.itemSelectionChanged.connect( self.selectionChanged )
+    self.btnLayerUp.clicked.connect( self.moveLayerUp )
+    self.btnLayerDown.clicked.connect( self.moveLayerDown )
 
     self.manageGui()
 
@@ -289,6 +291,34 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
           self.lstOrder.takeTopLevelItem( i )
 
     self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), True if self.lstOrder.topLevelItemCount() > 0 else False)
+
+  def moveLayerUp( self ):
+    selection = self.lstOrder.selectedItems()
+    if len( selection ) < 1:
+      return
+
+    selectedIndex = self.lstOrder.indexOfTopLevelItem( selection[0] )
+    if selectedIndex < 1:
+      return
+
+    selectedItem = self.lstOrder.takeTopLevelItem( selectedIndex )
+    self.lstOrder.insertTopLevelItem( selectedIndex - 1, selectedItem )
+    self.lstOrder.clearSelection()
+    selectedItem.setSelected( True )
+
+  def moveLayerDown( self ):
+    selection = self.lstOrder.selectedItems()
+    if len( selection ) < 1:
+      return
+
+    selectedIndex = self.lstOrder.indexOfTopLevelItem( selection[0] )
+    if selectedIndex < 0 or selectedIndex > self.lstOrder.topLevelItemCount() - 2:
+      return
+
+    selectedItem = self.lstOrder.takeTopLevelItem( selectedIndex )
+    self.lstOrder.insertTopLevelItem( selectedIndex + 1, selectedItem )
+    self.lstOrder.clearSelection()
+    selectedItem.setSelected( True )
 
   def addLayers( self ):
     pass
