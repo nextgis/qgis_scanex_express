@@ -321,4 +321,24 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     selectedItem.setSelected( True )
 
   def addLayers( self ):
-    pass
+    apiKey = self.leApiKey.text()
+
+    myUri = QgsDataSourceURI()
+    url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
+    myUri.setParam( "url", url  )
+
+    crs = self.crs
+    layers = []
+    styles = []
+
+    for i in xrange( self.lstOrder.topLevelItemCount() - 1, -1, -1 ):
+      layers.append( unicode( self.lstOrder.topLevelItem( i ).text( 0 ) ) )
+      styles.append( "" )
+
+    myUri.setParamList( "layers", layers )
+    myUri.setParamList( "styles", styles )
+    myUri.setParam( "format", "png" )
+    myUri.setParam( "crs", crs )
+
+    layer = QgsRasterLayer( unicode( myUri.encodedUri() ), unicode( "/".join( layers ) ), "wms" )
+    QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
