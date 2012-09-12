@@ -75,6 +75,9 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     # disable change CRS button
     self.btnChangeCRS.setEnabled( False )
 
+    self.tabWidget.setCurrentIndex( 0 )
+    self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), False )
+
   def reject( self ):
     QDialog.reject( self )
 
@@ -184,15 +187,16 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     self.crss = set()
 
-    layers = []
+    self.layers = []
 
     for item in currentSelection:
       layerName = item.data( 0, Qt.UserRole + 0 ).toString()
 
       if layerName.isEmpty():
+        # TODO: add support for groups
         pass
       else:
-        layers.append( layerName )
+        self.layers.append( layerName )
         if len( self.crss ) == 0:
           self.crss = set( item.data( 0, Qt.UserRole + 2 ).toStringList() )
         else:
@@ -200,25 +204,26 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     self.btnChangeCRS.setDisabled( True if len( self.crss ) == 0 else False )
 
-    if len( layers ) > 0 and len( self.crss ) > 0:
+    if len( self.layers ) > 0 and len( self.crss ) > 0:
       defaultCRS = ""
       notFound = True
       for crs in self.crss:
-        if crs.lower() == self.crs.lower():
+        if unicode( crs ).lower() == unicode( self.crs ).lower():
           notFound = False
           break
 
-        if crs.lower() == self.crss[0].lower():
+        if unicode( crs ).lower() == unicode( list(self.crss)[0] ).lower():
           defaultCRS = crs
 
-        if crs.lower() == QGis.GEO_EPSG_CRS_AUTHID.lower():
+        if unicode( crs ).lower() == unicode( GEO_EPSG_CRS_AUTHID ).lower():
           defaultCRS = crs
 
       if notFound:
         self.crs = defaultCRS
         self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
 
-      self.updateButtons()
+    self.updateOrderTab( self.layers )
+    self.updateButtons()
 
   def enableLayersForCrs( self, item ):
     layerName = item.data( 0, Qt.UserRole + 0 ).toString()
@@ -237,6 +242,36 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       self.btnAdd.setEnabled( False )
     else:
       self.btnAdd.setEnabled( True )
+
+  def updateOrderTab( self, layers ):
+    # add layer to list if necessary
+    for layer in layers:
+      exists = False
+      for i in xrange( self.lstOrder.topLevelItemCount() ):
+        itemName = self.lstOrder.topLevelItem( i ).text( 0 )
+        if itemName == layer:
+          exists = True
+          break
+
+      if not exists:
+        newItem = QTreeWidgetItem()
+        newItem.setText( 0, layer )
+        self.lstOrder.addTopLevelItem( newItem )
+
+    # remove layer from list if necessary
+    if self.lstOrder.topLevelItemCount() > 0:
+      for i in xrange(self.lstOrder.topLevelItemCount() - 1, -1, -1):
+        itemName = self.lstOrder.topLevelItem( i ).text( 0 )
+        exists = False
+        for layer in layers:
+          if itemName == layer:
+            exists = True
+            break
+
+        if not exists:
+          self.lstOrder.takeTopLevelItem( i )
+
+    self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), True if self.lstOrder.topLevelItemCount() > 0 else False)
 
   def addLayers( self ):
     pass
