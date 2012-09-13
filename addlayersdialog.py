@@ -94,9 +94,9 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
   def changeCrs( self ):
     mySelector = QgsGenericProjectionSelector( self )
     mySelector.setMessage()
-    mySelector.setOgcWmsCrsFilter( self.CRSs )
+    mySelector.setOgcWmsCrsFilter( list( self.crss ) )
 
-    myDefaultCrs = QgsProject.instance().readEntry( "SpatialRefSys", "/ProjectCrs", GEO_EPSG_CRS_AUTHID )
+    myDefaultCrs = QgsProject.instance().readEntry( "SpatialRefSys", "/ProjectCrs", GEO_EPSG_CRS_AUTHID )[0]
     defaultCRS = QgsCoordinateReferenceSystem()
     if defaultCRS.createFromOgcWmsCrs( myDefaultCrs ):
       mySelector.setSelectedCrsId( defaultCRS.srsid() )
