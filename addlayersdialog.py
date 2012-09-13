@@ -89,7 +89,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     return qgisSrs.description()
 
   def getApiKey( self ):
-    QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Apikey?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
+    QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Account/Registration?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
 
   def changeCrs( self ):
     mySelector = QgsGenericProjectionSelector( self )
