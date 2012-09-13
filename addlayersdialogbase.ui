@@ -60,7 +60,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabLayers">
       <attribute name="title">
@@ -146,16 +146,11 @@
        <item row="1" column="0" colspan="3">
         <widget class="QTreeWidget" name="lstOrder">
          <property name="columnCount">
-          <number>2</number>
+          <number>1</number>
          </property>
          <column>
           <property name="text">
            <string>Layer</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Style</string>
           </property>
          </column>
         </widget>
