@@ -77,7 +77,7 @@ class WmsProvider( QObject ):
     return True
 
   def retrieveServerCapabilities( self ):
-    print "retrieveServerCapabilities"
+    #print "retrieveServerCapabilities"
     if self.httpCapabilitiesResponse.isNull():
       url = self.baseUrl
       if not url.contains( "SERVICE=WMTS" ) and not url.contains( "/WMTSCapabilities.xml" ):
@@ -108,11 +108,11 @@ class WmsProvider( QObject ):
         return False
 
       # converting to DOM
-      print "converting to DOM"
+      #print "converting to DOM"
 
       if not self.parseCapabilitiesDom():
         self.error += self.tr( "\nTried URL: %1" ).arg( url )
-        print "!domOK"
+        #print "!domOK"
         return False
 
     return True
@@ -122,16 +122,16 @@ class WmsProvider( QObject ):
     if bytesTotal > 0:
       bt = QString.number( bytesTotal )
     msg = self.tr( "%1 of %2 bytes of capabilities downloaded." ).arg( bytesReceived ).arg( bt )
-    print unicode( msg )
+    #print unicode( msg )
     #self.statusChanged.emit()
 
   def capabilitiesReplyFinished( self ):
     if self.capabilitiesReply.error() == QNetworkReply.NoError:
-      print "reply ok"
+      #print "reply ok"
 
       redirect = self.capabilitiesReply.attribute( QNetworkRequest.RedirectionTargetAttribute )
       if not redirect.isNull():
-        print "Capabilities request redirected"
+        #print "Capabilities request redirected"
         #self.statusChanged.emit( tr( "Capabilities request redirected." ) )
 
         request = QNetworkRequest( redirect.toUrl() )
@@ -172,7 +172,7 @@ class WmsProvider( QObject ):
     docElem = self.capabilitiesDom.documentElement()
 
     # assert that the DTD is what we expected (i.e. a WMS Capabilities document)
-    print "testing tagName", docElem.tagName()
+    #print "testing tagName", docElem.tagName()
 
     if docElem.tagName() not in [ "WMS_Capabilities", "WMT_MS_Capabilities", "Capabilities" ]:
       self.errorCaption = self.tr( "Dom Exception" )
@@ -185,12 +185,14 @@ class WmsProvider( QObject ):
     while not n.isNull():
       e = n.toElement()
       if e.tagName() in [ "Service", "ows:ServiceProvider", "ows:ServiceIdentification" ]:
-        print "  Service"
+        #print "  Service"
+        pass
       elif e.tagName() in [ "Capability", "ows:OperationsMetadata" ]:
-        print "  Capability"
+        #print "  Capability"
         self.parseCapability( e )
       elif e.tagName() in [ "Contents" ]:
-        print "  Contents"
+        #print "  Contents"
+        pass
 
       n = n.nextSibling()
 
@@ -207,17 +209,20 @@ class WmsProvider( QObject ):
       if tagName.startsWith( "wms:" ):
         tagName = tagName.mid( 4 )
 
-      print "  ", e1.tagName()
+      #print "  ", e1.tagName()
 
       if tagName == "Request":
-        print "  Request"
+        #print "  Request"
+        pass
       elif tagName == "Layer":
-        print "  Layer"
+        #print "  Layer"
         self.parseLayer( e1 )
       elif tagName == "VendorSpecificCapabilities":
-        print "  Vendor Capabilities"
+        #print "  Vendor Capabilities"
+        pass
       elif tagName == "ows:Operation":
-        print "  Operation"
+        #print "  Operation"
+        pass
 
       n1 = n1.nextSibling()
 
@@ -238,7 +243,7 @@ class WmsProvider( QObject ):
           tagName = tagName.mid( 4 )
 
         if tagName == "Layer":
-          print "      Nested layer."
+          #print "      Nested layer."
           layer[ "layer" ].append( self.parseLayer( e1, layer[ "orderId" ] ) )
 
         elif tagName == "Name":

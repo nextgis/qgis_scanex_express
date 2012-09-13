@@ -160,7 +160,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     if provider.errorFormat == "text/html":
       mv.setMessageAsHtml( provider.error )
     else:
-      mv.setMessageAsPlainText( self.tr( "Could not understand the response. The provider said:\n%2" ).arg( provider.error ) )
+      mv.setMessageAsPlainText( self.tr( "Could not understand the response. The provider said:\n%1" ).arg( provider.error ) )
 
     mv.showMessage( True )
 
