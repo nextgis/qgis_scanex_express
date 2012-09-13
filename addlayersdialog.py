@@ -51,6 +51,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     self.btnAdd.clicked.connect( self.addLayers )
     self.btnConnect.clicked.connect( self.connectToServer )
+    self.btnRegister.clicked.connect( self.registerInSystem )
     self.btnGetKey.clicked.connect( self.getApiKey )
     self.btnChangeCRS.clicked.connect( self.changeCrs )
     self.lstLayers.itemSelectionChanged.connect( self.selectionChanged )
@@ -88,8 +89,11 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     qgisSrs.createFromOgcWmsCrs( authId )
     return qgisSrs.description()
 
-  def getApiKey( self ):
+  def registerInSystem( self ):
     QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Account/Registration?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
+
+  def getApiKey( self ):
+    QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Apikey?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
 
   def changeCrs( self ):
     mySelector = QgsGenericProjectionSelector( self )

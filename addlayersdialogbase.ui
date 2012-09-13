@@ -49,9 +49,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="btnRegister">
+       <property name="text">
+        <string>Register for API key</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnGetKey">
        <property name="text">
-        <string>Get API key</string>
+        <string>Log in to get API key</string>
        </property>
       </widget>
      </item>
