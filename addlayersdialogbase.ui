@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>605</width>
-    <height>428</height>
+    <width>543</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,16 +49,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnRegister">
-       <property name="text">
-        <string>Register for API key</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnGetKey">
        <property name="text">
-        <string>Log in to get API key</string>
+        <string>Get API key</string>
        </property>
       </widget>
      </item>
