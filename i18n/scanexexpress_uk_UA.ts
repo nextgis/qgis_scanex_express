@@ -22,32 +22,32 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
 <context>
     <name>AddLayersDialog</name>
     <message>
-        <location filename="addlayersdialog.py" line="47"/>
+        <location filename="addlayersdialog.py" line="49"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="48"/>
+        <location filename="addlayersdialog.py" line="50"/>
         <source>Add selected layers to map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="224"/>
+        <location filename="addlayersdialog.py" line="231"/>
         <source>Coordinate Refrence System: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="120"/>
+        <location filename="addlayersdialog.py" line="127"/>
         <source>Missed API key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="120"/>
+        <location filename="addlayersdialog.py" line="127"/>
         <source>Please enter your API key and try again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="163"/>
+        <location filename="addlayersdialog.py" line="170"/>
         <source>Could not understand the response. The provider said:
 %1</source>
         <translation type="unfinished"></translation>
@@ -94,78 +94,83 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="34"/>
+        <location filename="addlayersdialogbase.ui" line="38"/>
         <source>Save API key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="43"/>
+        <location filename="addlayersdialogbase.ui" line="47"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="50"/>
+        <location filename="addlayersdialogbase.ui" line="54"/>
         <source>Get API key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="63"/>
+        <location filename="addlayersdialogbase.ui" line="67"/>
         <source>Layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="82"/>
+        <location filename="addlayersdialogbase.ui" line="86"/>
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="87"/>
+        <location filename="addlayersdialogbase.ui" line="91"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="92"/>
+        <location filename="addlayersdialogbase.ui" line="96"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="97"/>
+        <location filename="addlayersdialogbase.ui" line="101"/>
         <source>Abstract</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="107"/>
+        <location filename="addlayersdialogbase.ui" line="111"/>
         <source>Coordinate Refrence System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="127"/>
+        <location filename="addlayersdialogbase.ui" line="131"/>
         <source>Change...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="139"/>
+        <location filename="addlayersdialogbase.ui" line="143"/>
         <source>Layer order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="149"/>
+        <location filename="addlayersdialogbase.ui" line="153"/>
         <source>Layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="154"/>
-        <source>Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="addlayersdialogbase.ui" line="162"/>
+        <location filename="addlayersdialogbase.ui" line="161"/>
         <source>Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="169"/>
+        <location filename="addlayersdialogbase.ui" line="168"/>
         <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="browserdialogbase.ui" line="14"/>
+        <source>Log in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="browserdialogbase.ui" line="21"/>
+        <source>about:blank</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

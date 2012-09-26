@@ -23,27 +23,27 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
 <context>
     <name>AddLayersDialog</name>
     <message>
-        <location filename="addlayersdialog.py" line="47"/>
+        <location filename="addlayersdialog.py" line="49"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="48"/>
+        <location filename="addlayersdialog.py" line="50"/>
         <source>Add selected layers to map</source>
         <translation>Добавить выделенные слои на карту</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="224"/>
+        <location filename="addlayersdialog.py" line="231"/>
         <source>Coordinate Refrence System: %1</source>
         <translation>Система координат: %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="120"/>
+        <location filename="addlayersdialog.py" line="127"/>
         <source>Missed API key</source>
         <translation>Не задан API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="120"/>
+        <location filename="addlayersdialog.py" line="127"/>
         <source>Please enter your API key and try again</source>
         <translation>Пожалуйста, введите ваш API-ключ и попробуйте ещё раз</translation>
     </message>
@@ -55,7 +55,7 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
 %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="163"/>
+        <location filename="addlayersdialog.py" line="170"/>
         <source>Could not understand the response. The provider said:
 %1</source>
         <translation>Не удалось обработать ответ. Провайдер вернул:
@@ -72,7 +72,7 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
     <message>
         <location filename="aboutdialogbase.ui" line="50"/>
         <source>TextLabel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="aboutdialogbase.ui" line="36"/>
@@ -81,7 +81,7 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Droid Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Scanex Express&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="aboutdialogbase.ui" line="119"/>
@@ -90,7 +90,7 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Droid Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="14"/>
@@ -103,79 +103,89 @@ p, li { white-space: pre-wrap; }
         <translation>API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="34"/>
+        <location filename="addlayersdialogbase.ui" line="38"/>
         <source>Save API key</source>
         <translation>Сохранить API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="43"/>
+        <location filename="addlayersdialogbase.ui" line="47"/>
         <source>Connect</source>
         <translation>Подключиться</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="50"/>
+        <location filename="addlayersdialogbase.ui" line="54"/>
         <source>Get API key</source>
         <translation>Получить API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="63"/>
+        <location filename="addlayersdialogbase.ui" line="67"/>
         <source>Layers</source>
         <translation>Слои</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="82"/>
+        <location filename="addlayersdialogbase.ui" line="86"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="87"/>
+        <location filename="addlayersdialogbase.ui" line="91"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="92"/>
+        <location filename="addlayersdialogbase.ui" line="96"/>
         <source>Title</source>
         <translation>Заголовок</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="97"/>
+        <location filename="addlayersdialogbase.ui" line="101"/>
         <source>Abstract</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="107"/>
+        <location filename="addlayersdialogbase.ui" line="111"/>
         <source>Coordinate Refrence System</source>
         <translation>Система координат</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="127"/>
+        <location filename="addlayersdialogbase.ui" line="131"/>
         <source>Change...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="139"/>
+        <location filename="addlayersdialogbase.ui" line="143"/>
         <source>Layer order</source>
         <translation>Порядок слоёв</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="149"/>
+        <location filename="addlayersdialogbase.ui" line="153"/>
         <source>Layer</source>
         <translation>Слой</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="154"/>
         <source>Style</source>
-        <translation>Стиль</translation>
+        <translation type="obsolete">Стиль</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="162"/>
+        <location filename="addlayersdialogbase.ui" line="161"/>
         <source>Up</source>
         <translation>Вверх</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="169"/>
+        <location filename="addlayersdialogbase.ui" line="168"/>
         <source>Down</source>
         <translation>Вниз</translation>
+    </message>
+    <message>
+        <location filename="browserdialogbase.ui" line="14"/>
+        <source>Log in</source>
+        <translation>Войти</translation>
+    </message>
+    <message>
+        <location filename="browserdialogbase.ui" line="21"/>
+        <source>about:blank</source>
+        <translation></translation>
     </message>
 </context>
 <context>
