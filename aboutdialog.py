@@ -60,15 +60,10 @@ class AboutDialog( QDialog, Ui_Dialog ):
 
     localeShortName = localeFullName[ 0:2 ]
     if localeShortName in [ "ru", "uk" ]:
-      QDesktopServices.openUrl( QUrl( "http://hub.qgis.org/projects/geotagphotos/wiki" ) )
+      QDesktopServices.openUrl( QUrl( "http://scanex.ru" ) )
     else:
-      QDesktopServices.openUrl( QUrl( "http://hub.qgis.org/projects/geotagphotos/wiki" ) )
+      QDesktopServices.openUrl( QUrl( "http://scanex.ru" ) )
 
   def getAboutText( self ):
-    return self.tr( """<p>Tag and GeoTag photos and import them as a point vector layer.</p>
-<p>Plugin developed by Alexander Bruy for Faunalia (<a href="http://faunalia.eu">http://faunalia.eu</a>)</p>
-<p>NOTE: Geo-Tagging and Tagging capabilities rely on an external software
-called exiftool (<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">http://www.sno.phy.queensu.ca/~phil/exiftool/)</a></p>
-<p><strong>Homepage</strong>: <a href="http://hub.qgis.org/projects/geotagphotos">http://hub.qgis.org/projects/geotagphotos</a></p>
-<p>Please report bugs at <a href="http://hub.qgis.org/projects/geotagphotos/issues">http://hub.qgis.org/projects/geotagphotos/issues</a></p>
+    return self.tr( """<p>Waiting for text</p>
 """)
