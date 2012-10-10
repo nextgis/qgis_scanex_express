@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers ScanexExpress Layer</title>
+    <link rel="stylesheet" href="qgis.css" type="text/css">
+    <script src="OpenLayers.js"></script>
+    <script src="OlOverviewMarker.js"></script>
+    <script type="text/javascript">
+        var map;
+        var loadEnd;
+        var oloMarker; // OpenLayer Overview Marker
+        function init() {
+            map = new OpenLayers.Map('map', {
+                theme: null,
+                controls: [],
+                projection: new OpenLayers.Projection("*CRS*"),
+                units: "m",
+                maxResolution: 156543.0339,
+                maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508)
+            });
+
+            loadEnd = false;
+            function layerLoadStart(event)
+            {
+              loadEnd = false;
+            }
+            function layerLoadEnd(event)
+            {
+              loadEnd = true;
+            }
+
+            var scanex = new OpenLayers.Layer.XYZ(
+              "ScanexExpress",
+              "http://maps.kosmosnimki.ru/TileService.ashx?Request=gettile&layerName=*LAYER*&apikey=*APIKEY*&z=${z}&x=${x}&y=${y}",
+              {
+                eventListeners: {
+                  "loadstart": layerLoadStart,
+                  "loadend": layerLoadEnd
+                }
+              }
+            );
+            map.addLayer(scanex);
+            map.addControl(new OpenLayers.Control.Attribution());
+            map.setCenter(new OpenLayers.LonLat(0, 0), 2);
+            oloMarker = new OlOverviewMarker(map, getPathUpper(document.URL) + '/x.png');
+        }
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="map"></div>
+  </body>
+</html>
