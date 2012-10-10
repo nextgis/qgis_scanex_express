@@ -53,10 +53,10 @@ class WmsProvider( QObject ):
     self.parseUri( uri )
 
   def parseUri( self, uriString ):
-    uri = QgsDataSourceURI()
-    uri.setEncodedUri( unicode( uriString ) )
+    #uri = QgsDataSourceURI()
+    #uri.setEncodedUri( unicode( uriString ) )
 
-    self.httpUri = uri.param( "url" )
+    self.httpUri = uriString.param( "url" )
     self.baseUrl = self.prepareUri( self.httpUri )
 
   def prepareUri( self, uri ):
