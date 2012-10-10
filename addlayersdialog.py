@@ -135,8 +135,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     uri.setParam( "url", url  )
 
-    #provider = wmsprovider.WmsProvider( uri.encodedUri() )
-    provider = wmsprovider.WmsProvider( uri )
+    provider = wmsprovider.WmsProvider( uri.encodedUri() )
 
     if not provider.supportedLayers():
       self.showError( provider.error )
