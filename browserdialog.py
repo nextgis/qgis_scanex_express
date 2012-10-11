@@ -38,5 +38,5 @@ class BrowserDialog( QDialog, Ui_Dialog ):
     QDialog.__init__( self )
     self.setupUi( self )
 
-    #self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=1&redirect_uri=http://localhost/test&scope=rety&state=basic", QUrl.StrictMode) )
-    self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=1&redirect_uri=http%3A%2F%2Flocalhost%2Ftest&scope=rety&state=basic", QUrl.StrictMode) )
+    self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=1&redirect_uri=http://localhost/test&scope=rety&state=basic", QUrl.StrictMode) )
+    #self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=1&redirect_uri=http%3A%2F%2Flocalhost%2Ftest&scope=rety&state=basic", QUrl.StrictMode) )
