@@ -60,6 +60,7 @@ class OpenlayersLayer(QgsPluginLayer):
     self.layerCrs = layerCRS
     self.layerName = layerName
     self.apiKey = apiKey
+    self.filePath = None
     self.emitsLoadEnd = True
 
     self.setExtent(QgsRectangle(-20037508.34, -20037508.34, 20037508.34, 20037508.34))
@@ -110,16 +111,17 @@ class OpenlayersLayer(QgsPluginLayer):
         shutil.copy(os.path.join(pt, "html/OlOverviewMarker.js"), tmpDir)
 
       # create temporary HTML
-      f = open(os.path.dirname( __file__ ).replace("\\", "/") + "/html/scanex.html")
-      html = QString(f.read())
-      f.close()
-      html.replace("*CRS*", self.layerCrs)
-      html.replace("*LAYER*", self.layerName)
-      html.replace("*APIKEY*", self.apiKey)
-      fh, self.filePath = tempfile.mkstemp(".html")
-      f = os.fdopen(fh, "w")
-      f.write(unicode(html))
-      f.close()
+      if self.filePath is None:
+        f = open(os.path.dirname( __file__ ).replace("\\", "/") + "/html/scanex.html")
+        html = QString(f.read())
+        f.close()
+        html.replace("*CRS*", self.layerCrs)
+        html.replace("*LAYER*", self.layerName)
+        html.replace("*APIKEY*", self.apiKey)
+        fh, self.filePath = tempfile.mkstemp(".html")
+        f = os.fdopen(fh, "w")
+        f.write(unicode(html))
+        f.close()
 
       url = "file:///" + self.filePath
       qDebug( "page file: %s" % url )
