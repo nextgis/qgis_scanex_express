@@ -257,12 +257,31 @@ class WmsProvider( QObject ):
         elif tagName in [ "SRS", "CRS" ]:
           for srs in e1.text().split( QRegExp( "\\s+" ) ):
             layer[ "crs" ].append( srs )
-        elif tagName == "LatLonBoundingBox":
+        elif tagName == "LatLonBoundingBox": # legacy from earlier versions of WMS
+          rect = QgsRectangle( e1.attribute( "minx" ).toDouble()[0],
+                               e1.attribute( "miny" ).toDouble()[0],
+                               e1.attribute( "maxx" ).toDouble()[0],
+                               e1.attribute( "maxy" ).toDouble()[0]
+                             )
+        elif tagName == "EX_GeographicBoundingBox": # for WMS 1.3
           pass
-        elif tagName == "EX_GeographicBoundingBox":
-          pass
-        elif tagName == "BoundingBox":
-          pass
+        elif tagName == "BoundingBox": # WTF?
+          rect= QgsRectangle( e1.attribute( "minx" ).toDouble()[0],
+                              e1.attribute( "miny" ).toDouble()[0],
+                              e1.attribute( "maxx" ).toDouble()[0],
+                              e1.attribute( "maxy" ).toDouble()[0]
+                            );
+          rect = QString("%1;%2;%3;%4").arg(e1.attribute( "minx" )).arg(e1.attribute( "miny" )).arg(e1.attribute( "maxx" )).arg(e1.attribute( "maxy" ))
+          print rect
+          if e1.hasAttribute( "CRS" ) or e1.hasAttribute( "SRS" ):
+            if e1.hasAttribute( "CRS" ):
+              crs = e1.attribute( "CRS" )
+            elif e1.hasAttribute( "SRS" ):
+              crs = e1.attribute( "SRS" )
+          else:
+            #print "CRS/SRS attribute not found in BoundingBox"
+            pass
+          layer[ "bbox" ] = rect + ";" + crs
         elif tagName == "Dimension":
           pass
         elif tagName == "Attribution":

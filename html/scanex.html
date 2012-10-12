@@ -716,7 +716,7 @@
                 projection: new OpenLayers.Projection("*CRS*"),
                 units: "m",
                 maxResolution: 156543.0339,
-                maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508)
+                maxExtent: new OpenLayers.Bounds(*XMIN*, *YMIN*, *XMAX*, *YMAX*)
             });
 
             loadEnd = false;
@@ -731,7 +731,7 @@
 
             var scanex = new OpenLayers.Layer.XYZ(
               "ScanexExpress",
-              "http://maps.kosmosnimki.ru/TileService.ashx?Request=gettile&layerName=*LAYER*&apikey=*APIKEY*&z=${z}&x=${x}&y=${y}",
+              "http://maps.kosmosnimki.ru/TileService.ashx?Request=gettile&layerName=*LAYER*&apikey=*APIKEY*&crs=*EPSG*&z=${z}&x=${x}&y=${y}",
               {
                 eventListeners: {
                   "loadstart": layerLoadStart,

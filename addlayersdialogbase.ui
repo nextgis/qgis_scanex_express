@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Load layers from Scanex</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -58,133 +58,71 @@
     </layout>
    </item>
    <item>
-    <widget class="QTabWidget" name="tabWidget">
-     <property name="currentIndex">
-      <number>1</number>
+    <widget class="QTreeWidget" name="lstLayers">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <widget class="QWidget" name="tabLayers">
-      <attribute name="title">
-       <string>Layers</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QTreeWidget" name="lstLayers">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="selectionMode">
-          <enum>QAbstractItemView::MultiSelection</enum>
-         </property>
-         <property name="allColumnsShowFocus">
-          <bool>true</bool>
-         </property>
-         <column>
-          <property name="text">
-           <string>ID</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Title</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Abstract</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="lblCoordRefSys">
-           <property name="text">
-            <string>Coordinate Refrence System</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnChangeCRS">
-           <property name="text">
-            <string>Change...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-      <zorder>lstLayers</zorder>
-      <zorder></zorder>
-     </widget>
-     <widget class="QWidget" name="tabOrder">
-      <attribute name="title">
-       <string>Layer order</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="0" colspan="3">
-        <widget class="QTreeWidget" name="lstOrder">
-         <property name="columnCount">
-          <number>1</number>
-         </property>
-         <column>
-          <property name="text">
-           <string>Layer</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="btnLayerUp">
-         <property name="text">
-          <string>Up</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="btnLayerDown">
-         <property name="text">
-          <string>Down</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::MultiSelection</enum>
+     </property>
+     <property name="allColumnsShowFocus">
+      <bool>true</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Title</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Abstract</string>
+      </property>
+     </column>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="lblCoordRefSys">
+       <property name="text">
+        <string>Coordinate Refrence System</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnChangeCRS">
+       <property name="text">
+        <string>Change...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">

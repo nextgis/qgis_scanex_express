@@ -52,7 +52,7 @@ class OpenlayersLayer(QgsPluginLayer):
   MAX_ZOOM_LEVEL = 18
   SCALE_ON_MAX_ZOOM = 13540 # QGIS scale for 72 dpi
 
-  def __init__(self, iface, layerCRS="EPSG:3395", layerName="C9458F2DCB754CEEACC54216C7D1EB0A", apiKey="SA7F1UIEY0"):
+  def __init__(self, iface, layerCRS="EPSG:3395", layerName="C9458F2DCB754CEEACC54216C7D1EB0A", bbox=None, apiKey="SA7F1UIEY0"):
     QgsPluginLayer.__init__(self, OpenlayersLayer.LAYER_TYPE, layerName)
     self.setValid(True)
     self.setCrs(QgsCoordinateReferenceSystem(layerCRS))
@@ -60,6 +60,7 @@ class OpenlayersLayer(QgsPluginLayer):
     self.layerCrs = layerCRS
     self.layerName = layerName
     self.apiKey = apiKey
+    self.bbox = bbox
     self.filePath = None
     self.emitsLoadEnd = True
 
@@ -115,7 +116,18 @@ class OpenlayersLayer(QgsPluginLayer):
         f = open(os.path.dirname( __file__ ).replace("\\", "/") + "/html/scanex.html")
         html = QString(f.read())
         f.close()
+        if self.bbox is None:
+          html.replace("*XMIN*", "-20037508")
+          html.replace("*YMIN*", "-20037508")
+          html.replace("*XMAX*", "20037508")
+          html.replace("*YMAX*", "20037508")
+        else:
+          html.replace("*XMIN*", str(self.bbox.xMinimum()))
+          html.replace("*YMIN*", str(self.bbox.yMinimum()))
+          html.replace("*XMAX*", str(self.bbox.xMaximum()))
+          html.replace("*YMAX*", str(self.bbox.yMaximum()))
         html.replace("*CRS*", self.layerCrs)
+        html.replace("*EPSG*", self.layerCrs.toLower())
         html.replace("*LAYER*", self.layerName)
         html.replace("*APIKEY*", self.apiKey)
         fh, self.filePath = tempfile.mkstemp(".html")
