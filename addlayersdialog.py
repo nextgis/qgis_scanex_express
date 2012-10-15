@@ -80,11 +80,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     qgisSrs.createFromOgcWmsCrs( authId )
     return qgisSrs.description()
 
-  #def registerInSystem( self ):
-  #  QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Account/Registration?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
-
   def getApiKey( self ):
-    #QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Apikey?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
     dlg = browserdialog.BrowserDialog()
     dlg.exec_()
 
@@ -216,4 +212,5 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     apiKey = self.leApiKey.text()
     layer = openlayers_layer.OpenlayersLayer(self.iface, self.crs, lName, bbox, apiKey)
     if layer.isValid():
+      layer.setLayerName( unicode( item.text( 2 ) ) )
       QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
