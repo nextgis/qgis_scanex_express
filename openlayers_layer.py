@@ -18,6 +18,8 @@ email                : pka at sourcepole.ch
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
+ Modified by NextGIS (info at nextgis dot ru) for ScanexExpress project
 """
 
 import math
@@ -64,7 +66,10 @@ class OpenlayersLayer(QgsPluginLayer):
     self.filePath = None
     self.emitsLoadEnd = True
 
-    self.setExtent(QgsRectangle(-20037508.34, -20037508.34, 20037508.34, 20037508.34))
+    if bbox is None:
+      self.setExtent( QgsRectangle( -20037508, -20037508, 20037508, 20037508 ) )
+    else:
+      self.setExtent( bbox )
 
     self.iface = iface
     self.loaded = False
