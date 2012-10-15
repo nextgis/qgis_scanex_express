@@ -32,6 +32,7 @@ from qgis.core import *
 
 from __init__ import version
 
+import openlayers_layer
 import addlayersdialog
 import aboutdialog
 
@@ -100,6 +101,9 @@ class ScanexExpressPlugin:
     self.iface.addWebToolBarIcon( self.loadBaseLayers )
     self.iface.addWebToolBarIcon( self.loadUserLayers )
 
+    # register plugin layer type
+    QgsPluginLayerRegistry.instance().addPluginLayerType(openlayers_layer.OpenlayersPluginLayerType(self.iface))
+
   def unload( self ):
     self.iface.unregisterMainWindowAction( self.loadBaseLayers )
     self.iface.unregisterMainWindowAction( self.loadUserLayers )
@@ -111,10 +115,11 @@ class ScanexExpressPlugin:
     self.iface.removeWebToolBarIcon( self.loadUserLayers )
 
   def baseLayers( self ):
-    url = "crs=EPSG:3395&featureCount=10&format=image/png&layers=C9458F2DCB754CEEACC54216C7D1EB0A&styles=&url=http://maps.kosmosnimki.ru/TileService.ashx/apikeySA7F1UIEY0"
-    layer = QgsRasterLayer( url, u"Базовое покрытие Kosmosnimki.Ru", "wms" )
-
-    QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
+    bbox = QgsRectangle( -20037508, -20037508, 20037508, 20037508 )
+    layer = openlayers_layer.OpenlayersLayer( self.iface, QString( "EPSG:3395" ), "C9458F2DCB754CEEACC54216C7D1EB0A", bbox, "SA7F1UIEY0" )
+    if layer.isValid():
+      layer.setLayerName( u"Базовое покрытие Kosmosnimki.Ru" )
+      QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
 
   def userLayers( self ):
     dlg = addlayersdialog.AddLayersDialog( self.iface )

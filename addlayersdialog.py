@@ -59,8 +59,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     self.manageGui()
 
-    QgsPluginLayerRegistry.instance().addPluginLayerType(openlayers_layer.OpenlayersPluginLayerType(self.iface))
-
   def manageGui( self ):
     settings = QSettings( "NextGIS", "ScanexExpress" )
 
