@@ -272,7 +272,6 @@ class WmsProvider( QObject ):
                               e1.attribute( "maxy" ).toDouble()[0]
                             );
           rect = QString("%1;%2;%3;%4").arg(e1.attribute( "minx" )).arg(e1.attribute( "miny" )).arg(e1.attribute( "maxx" )).arg(e1.attribute( "maxy" ))
-          print rect
           if e1.hasAttribute( "CRS" ) or e1.hasAttribute( "SRS" ):
             if e1.hasAttribute( "CRS" ):
               crs = e1.attribute( "CRS" )

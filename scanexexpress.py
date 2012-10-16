@@ -69,12 +69,12 @@ class ScanexExpressPlugin:
       QCoreApplication.installTranslator( self.translator )
 
   def initGui( self ):
-    if int( self.QgisVersion ) < 10800:
+    if int( self.QgisVersion ) < 10900:
       qgisVersion = str( self.QgisVersion[ 0 ] ) + "." + str( self.QgisVersion[ 2 ] ) + "." + str( self.QgisVersion[ 3 ] )
       QMessageBox.warning( self.iface.mainWindow(),
                            QCoreApplication.translate( "ScanexExpress", "ScanexExpress: Error" ),
                            QCoreApplication.translate( "ScanexExpress", "Quantum GIS %1 detected.\n" ).arg( qgisVersion ) +
-                           QCoreApplication.translate( "ScanexExpress", "This version of ScanexExpress requires at least QGIS version 1.8.0\nPlugin will not be enabled." ) )
+                           QCoreApplication.translate( "ScanexExpress", "This version of ScanexExpress requires at least QGIS version 1.9.0\nPlugin will not be enabled." ) )
       return None
 
     self.loadBaseLayers = QAction( QCoreApplication.translate( "ScanexExpress", "Basic coverage" ), self.iface.mainWindow() )
