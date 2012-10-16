@@ -32,6 +32,7 @@ from qgis.core import *
 from qgis.gui import *
 
 import browserdialog
+import openlayers_layer
 
 from ui_addlayersdialogbase import Ui_Dialog
 
@@ -44,7 +45,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.setupUi( self )
 
     self.crs = ""
-    self.crss = []
 
     self.btnAdd = QPushButton( self.tr( "Add" ) )
     self.btnAdd.setToolTip( self.tr( "Add selected layers to map" ) )
@@ -56,8 +56,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.btnGetKey.clicked.connect( self.getApiKey )
     self.btnChangeCRS.clicked.connect( self.changeCrs )
     self.lstLayers.itemSelectionChanged.connect( self.selectionChanged )
-    self.btnLayerUp.clicked.connect( self.moveLayerUp )
-    self.btnLayerDown.clicked.connect( self.moveLayerDown )
 
     self.manageGui()
 
@@ -68,19 +66,11 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.chkSaveKey.setChecked( settings.value( "saveKey", True ).toBool() )
 
     # set the current project CRS if available
-    currentCRS = QgsProject.instance().readNumEntry( "SpatialRefSys", "/ProjectCRSID", -1 )[0]
-    if currentCRS != -1:
-      currentRefSys = QgsCoordinateReferenceSystem( currentCRS, QgsCoordinateReferenceSystem.InternalCrsId )
-      if currentRefSys.isValid():
-        self.crs = currentRefSys.authid()
+    currentRefSys = QgsCoordinateReferenceSystem( "EPSG:3395" )
+    if currentRefSys.isValid():
+      self.crs = currentRefSys.authid()
 
     self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
-
-    # disable change CRS button
-    self.btnChangeCRS.setEnabled( False )
-
-    self.tabWidget.setCurrentIndex( 0 )
-    self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), False )
 
   def reject( self ):
     QDialog.reject( self )
@@ -90,23 +80,17 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     qgisSrs.createFromOgcWmsCrs( authId )
     return qgisSrs.description()
 
-  #def registerInSystem( self ):
-  #  QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Account/Registration?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
-
   def getApiKey( self ):
-    #QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Apikey?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
     dlg = browserdialog.BrowserDialog()
     dlg.exec_()
 
   def changeCrs( self ):
     mySelector = QgsGenericProjectionSelector( self )
     mySelector.setMessage()
-    mySelector.setOgcWmsCrsFilter( list( self.crss ) )
+    mySelector.setOgcWmsCrsFilter( ["EPSG:3395", "EPSG:3857"] )
 
-    myDefaultCrs = QgsProject.instance().readEntry( "SpatialRefSys", "/ProjectCrs", GEO_EPSG_CRS_AUTHID )[0]
-    defaultCRS = QgsCoordinateReferenceSystem()
-    if defaultCRS.createFromOgcWmsCrs( myDefaultCrs ):
-      mySelector.setSelectedCrsId( defaultCRS.srsid() )
+    defaultCRS = QgsCoordinateReferenceSystem( "EPSG:3395" )
+    mySelector.setSelectedCrsId( defaultCRS.srsid() )
 
     if not mySelector.exec_():
       return
@@ -115,10 +99,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     del mySelector
     self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
 
-    for i in xrange( self.lstLayers.topLevelItemCount() ):
-      self.enableLayersForCrs( self.lstLayers.topLevelItem( i ) )
-
-    self.updateButtons()
     self.update()
 
   def connectToServer( self ):
@@ -128,7 +108,8 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       return
 
     settings = QSettings( "NextGIS", "ScanexExpress" )
-    settings.setValue( "apiKey", self.leApiKey.text() )
+    if self.chkSaveKey.isChecked():
+      settings.setValue( "apiKey", self.leApiKey.text() )
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
 
     uri = QgsDataSourceURI()
@@ -156,6 +137,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       item.setData( 0, Qt.UserRole + 0, layer[ "name" ] )
       item.setData( 0, Qt.UserRole + 1, "" )
       item.setData( 0, Qt.UserRole + 2, layer[ "crs" ] )
+      item.setData( 0, Qt.UserRole + 3, QVariant( layer[ "bbox" ] ) )
 
     if self.lstLayers.topLevelItemCount() == 1:
       self.lstLayers.expandItem( self.lstLayers.topLevelItem( 0 ) )
@@ -192,160 +174,43 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     return item
 
   def selectionChanged( self ):
-    currentSelection = self.lstLayers.selectedItems()
-
-    self.crss = set()
-
-    self.layers = []
-
-    for item in currentSelection:
-      layerName = item.data( 0, Qt.UserRole + 0 ).toString()
-
-      if layerName.isEmpty():
-        self.layers.extend( self.collectLayers( item ) )
-      else:
-        self.layers.append( layerName )
-        if len( self.crss ) == 0:
-          self.crss = set( item.data( 0, Qt.UserRole + 2 ).toStringList() )
-        else:
-          self.crss.intersection( set( item.data( 0, Qt.UserRole + 2 ).toStringList() ) )
-
-    self.btnChangeCRS.setDisabled( True if len( self.crss ) == 0 else False )
-
-    if len( self.layers ) > 0 and len( self.crss ) > 0:
-      defaultCRS = ""
-      notFound = True
-      for crs in self.crss:
-        if unicode( crs ).lower() == unicode( self.crs ).lower():
-          notFound = False
-          break
-
-        if unicode( crs ).lower() == unicode( list(self.crss)[0] ).lower():
-          defaultCRS = crs
-
-        if unicode( crs ).lower() == unicode( GEO_EPSG_CRS_AUTHID ).lower():
-          defaultCRS = crs
-
-      if notFound:
-        self.crs = defaultCRS
-        self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
-
-    self.updateOrderTab( self.layers )
-    self.updateButtons()
+    if len( self.lstLayers.selectedItems() ) > 0:
+      self.btnAdd.setEnabled( True )
 
   def collectLayers( self, item ):
-    layers = []
     layerName = item.data( 0, Qt.UserRole + 0 ).toString()
     styleName = item.data( 0, Qt.UserRole + 1 ).toString()
 
     if layerName.isEmpty(): # this is a group
       for i in xrange( item.childCount() ):
-        layers.extend( self.collectLayers( item.child( i ) ) )
+        self.collectLayers( item.child( i ) )
     elif styleName.isEmpty(): # this is a layer
-      layers.append( layerName )
-
-      if len( self.crss ) == 0:
-        self.crss = set( item.data( 0, Qt.UserRole + 2 ).toStringList() )
-      else:
-        self.crss.intersection( set( item.data( 0, Qt.UserRole + 2 ).toStringList() ) )
-
-    return layers
-
-  def enableLayersForCrs( self, item ):
-    layerName = item.data( 0, Qt.UserRole + 0 ).toString()
-
-    if not layerName.isEmpty():
-      disable = not item.data( 0, Qt.UserRole + 2 ).toStringList().contains( self.crs, Qt.CaseInsensitive )
-      item.setDisabled( disable )
-    else:
-      for i in xrange( item.childCount() ):
-        self.enableLayersForCrs( item.child( i ) )
-
-  def updateButtons( self ):
-    if len( self.crss ) == 0:
-      self.btnAdd.setEnabled( False )
-    elif self.crs.isEmpty():
-      self.btnAdd.setEnabled( False )
-    else:
-      self.btnAdd.setEnabled( True )
-
-  def updateOrderTab( self, layers ):
-    # add layer to list if necessary
-    for layer in layers:
-      exists = False
-      for i in xrange( self.lstOrder.topLevelItemCount() ):
-        itemName = self.lstOrder.topLevelItem( i ).text( 0 )
-        if itemName == layer:
-          exists = True
-          break
-
-      if not exists:
-        newItem = QTreeWidgetItem()
-        newItem.setText( 0, layer )
-        self.lstOrder.addTopLevelItem( newItem )
-
-    # remove layer from list if necessary
-    if self.lstOrder.topLevelItemCount() > 0:
-      for i in xrange(self.lstOrder.topLevelItemCount() - 1, -1, -1):
-        itemName = self.lstOrder.topLevelItem( i ).text( 0 )
-        exists = False
-        for layer in layers:
-          if itemName == layer:
-            exists = True
-            break
-
-        if not exists:
-          self.lstOrder.takeTopLevelItem( i )
-
-    self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), True if self.lstOrder.topLevelItemCount() > 0 else False)
-
-  def moveLayerUp( self ):
-    selection = self.lstOrder.selectedItems()
-    if len( selection ) < 1:
-      return
-
-    selectedIndex = self.lstOrder.indexOfTopLevelItem( selection[0] )
-    if selectedIndex < 1:
-      return
-
-    selectedItem = self.lstOrder.takeTopLevelItem( selectedIndex )
-    self.lstOrder.insertTopLevelItem( selectedIndex - 1, selectedItem )
-    self.lstOrder.clearSelection()
-    selectedItem.setSelected( True )
-
-  def moveLayerDown( self ):
-    selection = self.lstOrder.selectedItems()
-    if len( selection ) < 1:
-      return
-
-    selectedIndex = self.lstOrder.indexOfTopLevelItem( selection[0] )
-    if selectedIndex < 0 or selectedIndex > self.lstOrder.topLevelItemCount() - 2:
-      return
-
-    selectedItem = self.lstOrder.takeTopLevelItem( selectedIndex )
-    self.lstOrder.insertTopLevelItem( selectedIndex + 1, selectedItem )
-    self.lstOrder.clearSelection()
-    selectedItem.setSelected( True )
+      self.addLayer( item )
 
   def addLayers( self ):
     apiKey = self.leApiKey.text()
 
-    myUri = QgsDataSourceURI()
-    url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
-    myUri.setParam( "url", url  )
+    currentSelection = self.lstLayers.selectedItems()
+    for item in currentSelection:
+      layerName = item.data( 0, Qt.UserRole + 0 ).toString()
+      if layerName.isEmpty(): # this is a group
+        self.collectLayers( item )
+      else:
+        self.addLayer( item )
 
-    crs = self.crs
-    layers = []
-    styles = []
+  def addLayer( self, item ):
+    lName = unicode( item.data( 0, Qt.UserRole + 0 ).toString() )
+    t = item.data( 0, Qt.UserRole + 3 ).toString().split( ";" )
+    rect = QgsRectangle( float(t[0]), float(t[1]), float(t[2]), float(t[3]) )
+    src = QgsCoordinateReferenceSystem()
+    src.createFromOgcWmsCrs( t[4] )
+    dst = QgsCoordinateReferenceSystem()
+    dst.createFromOgcWmsCrs( self.crs )
+    ct = QgsCoordinateTransform( src, dst )
+    bbox = ct.transformBoundingBox( rect )
 
-    for i in xrange( self.lstOrder.topLevelItemCount() - 1, -1, -1 ):
-      layers.append( unicode( self.lstOrder.topLevelItem( i ).text( 0 ) ) )
-      styles.append( "" )
-
-    myUri.setParamList( "layers", layers )
-    myUri.setParamList( "styles", styles )
-    myUri.setParam( "format", "png" )
-    myUri.setParam( "crs", crs )
-
-    layer = QgsRasterLayer( unicode( myUri.encodedUri() ), unicode( "/".join( layers ) ), "wms" )
-    QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
+    apiKey = self.leApiKey.text()
+    layer = openlayers_layer.OpenlayersLayer(self.iface, self.crs, lName, bbox, apiKey)
+    if layer.isValid():
+      layer.setLayerName( unicode( item.text( 2 ) ) )
+      QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
