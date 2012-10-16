@@ -84,7 +84,7 @@ class ScanexExpressPlugin:
 
     self.loadUserLayers = QAction( QCoreApplication.translate( "ScanexExpress", "My layers" ), self.iface.mainWindow() )
     self.iface.registerMainWindowAction( self.loadUserLayers, "Shift+U" )
-    self.loadUserLayers.setIcon( QIcon( ":/icons/add_layers2.png" ) )
+    self.loadUserLayers.setIcon( QIcon( ":/icons/add_layers.png" ) )
     self.loadUserLayers.setWhatsThis( "Add your layers to map" )
 
     self.showAboutDialog = QAction( QCoreApplication.translate( "ScanexExpress", "About ScanexExpress..." ), self.iface.mainWindow() )
