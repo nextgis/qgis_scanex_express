@@ -111,10 +111,6 @@ class OpenlayersLayer(QgsPluginLayer):
       # copy js files to temp dir
       tmpDir = tempfile.gettempdir()
       pt = os.path.dirname( __file__ )
-      if not os.path.isfile(os.path.join(tmpDir, "html/OpenLayers.js")):
-        shutil.copy(os.path.join(pt, "html/OpenLayers.js"), tmpDir)
-      if not os.path.isfile(os.path.join(tmpDir, "html/OlOverviewMarker.js")):
-        shutil.copy(os.path.join(pt, "html/OlOverviewMarker.js"), tmpDir)
 
       # create temporary HTML
       if self.filePath is None:
