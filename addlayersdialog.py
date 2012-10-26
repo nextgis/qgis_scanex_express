@@ -63,7 +63,9 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     settings = QSettings( "NextGIS", "ScanexExpress" )
 
     self.leApiKey.setText( settings.value( "apiKey", "" ).toString() )
-    self.chkSaveKey.setChecked( settings.value( "saveKey", True ).toBool() )
+    self.chkSaveKey.setChecked( settings.value( "saveKey", False ).toBool() )
+    self.leMap.setText( settings.value( "mapId", "" ).toString() )
+    self.chkSaveMap.setChecked( settings.value( "saveMap", False ).toBool() )
 
     # set the current project CRS if available
     currentCRS = QgsProject.instance().readNumEntry( "SpatialRefSys", "/ProjectCRSID", -1 )[0]
@@ -125,6 +127,8 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     settings = QSettings( "NextGIS", "ScanexExpress" )
     settings.setValue( "apiKey", self.leApiKey.text() )
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
+    settings.setValue( "mapId", self.leMap.text() )
+    settings.setValue( "saveMap", self.chkSaveMap.isChecked() )
 
     uri = QgsDataSourceURI()
     url = ""
