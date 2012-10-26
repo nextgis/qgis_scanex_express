@@ -56,8 +56,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.btnGetKey.clicked.connect( self.getApiKey )
     self.btnChangeCRS.clicked.connect( self.changeCrs )
     self.lstLayers.itemSelectionChanged.connect( self.selectionChanged )
-    self.btnLayerUp.clicked.connect( self.moveLayerUp )
-    self.btnLayerDown.clicked.connect( self.moveLayerDown )
 
     self.manageGui()
 
@@ -78,9 +76,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     # disable change CRS button
     self.btnChangeCRS.setEnabled( False )
-
-    self.tabWidget.setCurrentIndex( 0 )
-    self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), False )
 
   def reject( self ):
     QDialog.reject( self )
@@ -132,7 +127,12 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
 
     uri = QgsDataSourceURI()
-    url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
+    url = ""
+    mapId = self.leMap.text()
+    if mapId.isEmpty:
+      url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
+    else:
+      url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1&map=%2" ).arg( apiKey ).arg(mapId)
     uri.setParam( "url", url  )
 
     provider = wmsprovider.WmsProvider( uri.encodedUri() )
@@ -230,7 +230,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
         self.crs = defaultCRS
         self.lblCoordRefSys.setText( self.tr( "Coordinate Refrence System: %1" ).arg( self.descriptionForAuthId( self.crs ) ) )
 
-    self.updateOrderTab( self.layers )
     self.updateButtons()
 
   def collectLayers( self, item ):
@@ -269,83 +268,22 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     else:
       self.btnAdd.setEnabled( True )
 
-  def updateOrderTab( self, layers ):
-    # add layer to list if necessary
-    for layer in layers:
-      exists = False
-      for i in xrange( self.lstOrder.topLevelItemCount() ):
-        itemName = self.lstOrder.topLevelItem( i ).text( 0 )
-        if itemName == layer:
-          exists = True
-          break
-
-      if not exists:
-        newItem = QTreeWidgetItem()
-        newItem.setText( 0, layer )
-        self.lstOrder.addTopLevelItem( newItem )
-
-    # remove layer from list if necessary
-    if self.lstOrder.topLevelItemCount() > 0:
-      for i in xrange(self.lstOrder.topLevelItemCount() - 1, -1, -1):
-        itemName = self.lstOrder.topLevelItem( i ).text( 0 )
-        exists = False
-        for layer in layers:
-          if itemName == layer:
-            exists = True
-            break
-
-        if not exists:
-          self.lstOrder.takeTopLevelItem( i )
-
-    self.tabWidget.setTabEnabled( self.tabWidget.indexOf( self.tabOrder ), True if self.lstOrder.topLevelItemCount() > 0 else False)
-
-  def moveLayerUp( self ):
-    selection = self.lstOrder.selectedItems()
-    if len( selection ) < 1:
-      return
-
-    selectedIndex = self.lstOrder.indexOfTopLevelItem( selection[0] )
-    if selectedIndex < 1:
-      return
-
-    selectedItem = self.lstOrder.takeTopLevelItem( selectedIndex )
-    self.lstOrder.insertTopLevelItem( selectedIndex - 1, selectedItem )
-    self.lstOrder.clearSelection()
-    selectedItem.setSelected( True )
-
-  def moveLayerDown( self ):
-    selection = self.lstOrder.selectedItems()
-    if len( selection ) < 1:
-      return
-
-    selectedIndex = self.lstOrder.indexOfTopLevelItem( selection[0] )
-    if selectedIndex < 0 or selectedIndex > self.lstOrder.topLevelItemCount() - 2:
-      return
-
-    selectedItem = self.lstOrder.takeTopLevelItem( selectedIndex )
-    self.lstOrder.insertTopLevelItem( selectedIndex + 1, selectedItem )
-    self.lstOrder.clearSelection()
-    selectedItem.setSelected( True )
-
   def addLayers( self ):
     apiKey = self.leApiKey.text()
 
     myUri = QgsDataSourceURI()
-    url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
-    myUri.setParam( "url", url  )
+    mapId = self.leMap.text()
+    url = ""
+    if mapId.isEmpty():
+      url = QString( "&styles=&url=http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
+    else:
+      url = QString( "&styles=&url=http://maps.kosmosnimki.ru/TileService.ashx/apikey%1&map=%2" ).arg( apiKey ).arg( mapId )
 
-    crs = self.crs
-    layers = []
-    styles = []
+    for item in self.lstLayers.selectedItems():
+      layerName = item.text( 1 )
+      layerTitle = item.text( 2 )
 
-    for i in xrange( self.lstOrder.topLevelItemCount() - 1, -1, -1 ):
-      layers.append( unicode( self.lstOrder.topLevelItem( i ).text( 0 ) ) )
-      styles.append( "" )
+      uri = QString( "crs=%1&featureCount=10&format=image/png&layers=%2%3").arg( self.crs ).arg( layerName ).arg( url )
+      layer = QgsRasterLayer( uri, unicode(layerTitle), "wms" )
 
-    myUri.setParamList( "layers", layers )
-    myUri.setParamList( "styles", styles )
-    myUri.setParam( "format", "png" )
-    myUri.setParam( "crs", crs )
-
-    layer = QgsRasterLayer( unicode( myUri.encodedUri() ), unicode( "/".join( layers ) ), "wms" )
-    QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
+      QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
