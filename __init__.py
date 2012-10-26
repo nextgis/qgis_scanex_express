@@ -38,13 +38,10 @@ def version():
   return "0.0.1"
 
 def qgisMinimumVersion():
-  return "1.9.0"
+  return "1.8.0"
 
-def author():
+def authorName():
   return "NextGIS"
-
-def email():
-  return "info@nextgis.org"
 
 def icon():
   return "icons/scanex_express.png"

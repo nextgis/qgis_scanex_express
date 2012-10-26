@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru_RU">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -9,7 +10,12 @@
     </message>
     <message>
         <location filename="aboutdialog.py" line="68"/>
-        <source>&lt;p&gt;Waiting for text&lt;/p&gt;
+        <source>&lt;p&gt;Tag and GeoTag photos and import them as a point vector layer.&lt;/p&gt;
+&lt;p&gt;Plugin developed by Alexander Bruy for Faunalia (&lt;a href=&quot;http://faunalia.eu&quot;&gt;http://faunalia.eu&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;NOTE: Geo-Tagging and Tagging capabilities rely on an external software
+called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&quot;&gt;http://www.sno.phy.queensu.ca/~phil/exiftool/)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Homepage&lt;/strong&gt;: &lt;a href=&quot;http://hub.qgis.org/projects/geotagphotos&quot;&gt;http://hub.qgis.org/projects/geotagphotos&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please report bugs at &lt;a href=&quot;http://hub.qgis.org/projects/geotagphotos/issues&quot;&gt;http://hub.qgis.org/projects/geotagphotos/issues&lt;/a&gt;&lt;/p&gt;
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -27,17 +33,17 @@
         <translation>Добавить выделенные слои на карту</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="106"/>
+        <location filename="addlayersdialog.py" line="231"/>
         <source>Coordinate Refrence System: %1</source>
         <translation>Система координат: %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="113"/>
+        <location filename="addlayersdialog.py" line="127"/>
         <source>Missed API key</source>
         <translation>Не задан API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="113"/>
+        <location filename="addlayersdialog.py" line="127"/>
         <source>Please enter your API key and try again</source>
         <translation>Пожалуйста, введите ваш API-ключ и попробуйте ещё раз</translation>
     </message>
@@ -49,7 +55,7 @@
 %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="158"/>
+        <location filename="addlayersdialog.py" line="170"/>
         <source>Could not understand the response. The provider said:
 %1</source>
         <translation>Не удалось обработать ответ. Провайдер вернул:
@@ -114,47 +120,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addlayersdialogbase.ui" line="67"/>
         <source>Layers</source>
-        <translation type="obsolete">Слои</translation>
+        <translation>Слои</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="76"/>
+        <location filename="addlayersdialogbase.ui" line="86"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="81"/>
+        <location filename="addlayersdialogbase.ui" line="91"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="86"/>
+        <location filename="addlayersdialogbase.ui" line="96"/>
         <source>Title</source>
         <translation>Заголовок</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="91"/>
+        <location filename="addlayersdialogbase.ui" line="101"/>
         <source>Abstract</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="101"/>
+        <location filename="addlayersdialogbase.ui" line="111"/>
         <source>Coordinate Refrence System</source>
         <translation>Система координат</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="121"/>
+        <location filename="addlayersdialogbase.ui" line="131"/>
         <source>Change...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="143"/>
         <source>Layer order</source>
-        <translation type="obsolete">Порядок слоёв</translation>
+        <translation>Порядок слоёв</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="153"/>
         <source>Layer</source>
-        <translation type="obsolete">Слой</translation>
+        <translation>Слой</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="154"/>
@@ -164,12 +170,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addlayersdialogbase.ui" line="161"/>
         <source>Up</source>
-        <translation type="obsolete">Вверх</translation>
+        <translation>Вверх</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="168"/>
         <source>Down</source>
-        <translation type="obsolete">Вниз</translation>
+        <translation>Вниз</translation>
     </message>
     <message>
         <location filename="browserdialogbase.ui" line="14"/>

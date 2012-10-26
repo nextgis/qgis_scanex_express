@@ -1,16 +1,15 @@
 [general]
-name=ScanexExpress
-description=Integrates Scanex Express service in QGIS
-category=Web
-version=0.0.1
-qgisMinimumVersion=1.9.0
+name = ScanexExpress
+description = Integrates Scanex Express service in QGIS
+category = Web
+version = 0.0.1
+qgisMinimumVersion = 1.8.0
 
-author=NextGIS
-email=info@nextgis.org
+icon = icons/scanexexpress.png
 
-icon=icons/scanexexpress.png
+authorName = NextGIS
 
-tags = web, scanex, tile
+tags = web, wms, scanex
 
 homepage =
 tracker =

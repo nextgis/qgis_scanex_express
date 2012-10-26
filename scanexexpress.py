@@ -32,7 +32,6 @@ from qgis.core import *
 
 from __init__ import version
 
-import openlayers_layer
 import addlayersdialog
 import aboutdialog
 
@@ -69,12 +68,12 @@ class ScanexExpressPlugin:
       QCoreApplication.installTranslator( self.translator )
 
   def initGui( self ):
-    if int( self.QgisVersion ) < 10900:
+    if int( self.QgisVersion ) < 10800:
       qgisVersion = str( self.QgisVersion[ 0 ] ) + "." + str( self.QgisVersion[ 2 ] ) + "." + str( self.QgisVersion[ 3 ] )
       QMessageBox.warning( self.iface.mainWindow(),
                            QCoreApplication.translate( "ScanexExpress", "ScanexExpress: Error" ),
                            QCoreApplication.translate( "ScanexExpress", "Quantum GIS %1 detected.\n" ).arg( qgisVersion ) +
-                           QCoreApplication.translate( "ScanexExpress", "This version of ScanexExpress requires at least QGIS version 1.9.0\nPlugin will not be enabled." ) )
+                           QCoreApplication.translate( "ScanexExpress", "This version of ScanexExpress requires at least QGIS version 1.8.0\nPlugin will not be enabled." ) )
       return None
 
     self.loadBaseLayers = QAction( QCoreApplication.translate( "ScanexExpress", "Basic coverage" ), self.iface.mainWindow() )
@@ -84,7 +83,7 @@ class ScanexExpressPlugin:
 
     self.loadUserLayers = QAction( QCoreApplication.translate( "ScanexExpress", "My layers" ), self.iface.mainWindow() )
     self.iface.registerMainWindowAction( self.loadUserLayers, "Shift+U" )
-    self.loadUserLayers.setIcon( QIcon( ":/icons/add_layers.png" ) )
+    self.loadUserLayers.setIcon( QIcon( ":/icons/add_layers2.png" ) )
     self.loadUserLayers.setWhatsThis( "Add your layers to map" )
 
     self.showAboutDialog = QAction( QCoreApplication.translate( "ScanexExpress", "About ScanexExpress..." ), self.iface.mainWindow() )
@@ -101,9 +100,6 @@ class ScanexExpressPlugin:
     self.iface.addWebToolBarIcon( self.loadBaseLayers )
     self.iface.addWebToolBarIcon( self.loadUserLayers )
 
-    # register plugin layer type
-    QgsPluginLayerRegistry.instance().addPluginLayerType(openlayers_layer.OpenlayersPluginLayerType(self.iface))
-
   def unload( self ):
     self.iface.unregisterMainWindowAction( self.loadBaseLayers )
     self.iface.unregisterMainWindowAction( self.loadUserLayers )
@@ -115,11 +111,10 @@ class ScanexExpressPlugin:
     self.iface.removeWebToolBarIcon( self.loadUserLayers )
 
   def baseLayers( self ):
-    bbox = QgsRectangle( -20037508, -20037508, 20037508, 20037508 )
-    layer = openlayers_layer.OpenlayersLayer( self.iface, QString( "EPSG:3395" ), "C9458F2DCB754CEEACC54216C7D1EB0A", bbox, "SA7F1UIEY0" )
-    if layer.isValid():
-      layer.setLayerName( u"Базовое покрытие Kosmosnimki.Ru" )
-      QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
+    url = "crs=EPSG:3395&featureCount=10&format=image/png&layers=C9458F2DCB754CEEACC54216C7D1EB0A&styles=&url=http://maps.kosmosnimki.ru/TileService.ashx/apikeySA7F1UIEY0"
+    layer = QgsRasterLayer( url, u"Базовое покрытие Kosmosnimki.Ru", "wms" )
+
+    QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
 
   def userLayers( self ):
     dlg = addlayersdialog.AddLayersDialog( self.iface )
