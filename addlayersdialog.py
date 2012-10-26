@@ -125,18 +125,22 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       return
 
     settings = QSettings( "NextGIS", "ScanexExpress" )
-    settings.setValue( "apiKey", self.leApiKey.text() )
+    if self.chkSaveKey.isChecked():
+      settings.setValue( "apiKey", self.leApiKey.text() )
     settings.setValue( "saveKey", self.chkSaveKey.isChecked() )
-    settings.setValue( "mapId", self.leMap.text() )
+    if self.chkSaveMap.isChecked():
+      settings.setValue( "mapId", self.leMap.text() )
     settings.setValue( "saveMap", self.chkSaveMap.isChecked() )
 
     uri = QgsDataSourceURI()
     url = ""
     mapId = self.leMap.text()
-    if mapId.isEmpty:
+    if mapId.isEmpty():
       url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
     else:
       url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1&map=%2" ).arg( apiKey ).arg(mapId)
+
+    print "URL", url
     uri.setParam( "url", url  )
 
     provider = wmsprovider.WmsProvider( uri.encodedUri() )
