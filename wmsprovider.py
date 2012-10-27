@@ -48,6 +48,8 @@ class WmsProvider( QObject ):
     self.layerParents = dict()
     self.layerParentNames = dict()
 
+    self.errorCaption = self.tr("WMS error")
+
     self.valid = True
 
     self.parseUri( uri )
@@ -80,8 +82,8 @@ class WmsProvider( QObject ):
     #print "retrieveServerCapabilities"
     if self.httpCapabilitiesResponse.isNull():
       url = self.baseUrl
-      if not url.contains( "SERVICE=WMTS" ) and not url.contains( "/WMTSCapabilities.xml" ):
-        url += "SERVICE=WMS&REQUEST=GetCapabilities"
+      #if not url.contains( "SERVICE=WMTS" ) and not url.contains( "/WMTSCapabilities.xml" ):
+      #  url += "SERVICE=WMS&REQUEST=GetCapabilities"
 
       request = QNetworkRequest( QUrl( url ) )
       request.setAttribute( QNetworkRequest.CacheLoadControlAttribute, QNetworkRequest.PreferNetwork )

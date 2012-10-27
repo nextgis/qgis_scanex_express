@@ -136,9 +136,9 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     url = ""
     mapId = self.leMap.text()
     if mapId.isEmpty():
-      url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1" ).arg( apiKey )
+      url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1?SERVICE=WMS&REQUEST=GetCapabilities" ).arg( apiKey )
     else:
-      url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1&map=%2" ).arg( apiKey ).arg(mapId)
+      url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1?SERVICE=WMS&REQUEST=GetCapabilities&map=%2" ).arg( apiKey ).arg(mapId)
 
     print "URL", url
     uri.setParam( "url", url  )
@@ -146,7 +146,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     provider = wmsprovider.WmsProvider( uri.encodedUri() )
 
     if not provider.supportedLayers():
-      self.showError( provider.error )
+      self.showError( provider )
       pass
 
     items = dict()
