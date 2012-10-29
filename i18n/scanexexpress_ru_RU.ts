@@ -10,14 +10,90 @@
     </message>
     <message>
         <location filename="aboutdialog.py" line="68"/>
-        <source>&lt;p&gt;Tag and GeoTag photos and import them as a point vector layer.&lt;/p&gt;
-&lt;p&gt;Plugin developed by Alexander Bruy for Faunalia (&lt;a href=&quot;http://faunalia.eu&quot;&gt;http://faunalia.eu&lt;/a&gt;)&lt;/p&gt;
-&lt;p&gt;NOTE: Geo-Tagging and Tagging capabilities rely on an external software
-called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&quot;&gt;http://www.sno.phy.queensu.ca/~phil/exiftool/)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Homepage&lt;/strong&gt;: &lt;a href=&quot;http://hub.qgis.org/projects/geotagphotos&quot;&gt;http://hub.qgis.org/projects/geotagphotos&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please report bugs at &lt;a href=&quot;http://hub.qgis.org/projects/geotagphotos/issues&quot;&gt;http://hub.qgis.org/projects/geotagphotos/issues&lt;/a&gt;&lt;/p&gt;
+        <source>&lt;h2&gt;Ð­ÐºÑÐ¿ÑÐµÑÑ ÐÐ¾ÑÐ¼Ð¾ÑÐ½Ð¸Ð¼ÐºÐ¸&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;ÐÐ°Ð¶Ð½Ð¾!&lt;/strong&gt; ÐÑÐ¾ÑÑÑÐ°Ð½ÑÑÐ²ÐµÐ½Ð½ÑÐµ Ð´Ð°Ð½Ð½ÑÐµ,Â Ð´Ð¾ÑÑÑÐ¿Ð½ÑÐµ Ð² ÑÐµÑÐ²Ð¸ÑÐµ, ÑÐ²Ð»ÑÑÑÑÑ
+ÑÐµÐ·ÑÐ»ÑÑÐ°ÑÐ°Ð¼Ð¸ Ð¸Ð½ÑÐµÐ»Ð»ÐµÐºÑÑÐ°Ð»ÑÐ½Ð¾Ð¹ Ð´ÐµÑÑÐµÐ»ÑÐ½Ð¾ÑÑÐ¸,Â ÐºÐ¾ÑÐ¾ÑÑÐ¼ Ð¿ÑÐµÐ´Ð¾ÑÑÐ°Ð²Ð»ÐµÐ½Ð° Ð¿ÑÐ°Ð²Ð¾Ð²Ð°Ñ Ð¾ÑÑÐ°Ð½Ð°.
+Ð ÑÐ»ÑÑÐ°Ðµ Ð·Ð°ÐºÐ°Ð·Ð° Ð´Ð°Ð½Ð½ÑÑ Ð¿ÑÐ¾Ð¸ÑÑÐ¾Ð´Ð¸Ñ Ð·Ð°ÐºÐ»ÑÑÐµÐ½Ð¸Ðµ Ð´Ð¾Ð³Ð¾Ð²Ð¾ÑÐ° ÑÂ ÐºÐ¾Ð¼Ð¿Ð°Ð½Ð¸ÐµÐ¹-Ð¿Ð¾ÑÑÐ°Ð²ÑÐ¸ÐºÐ¾Ð¼ ÐÐ¢Ð¦
+Ð¡ÐÐÐÐ­ÐÐ¡. ÐÑÐ¾Ð¼Ðµ Ð¸ÑÐ¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°Ð½Ð¸Ñ Ð² ÑÐ²Ð¾Ð¸Ñ ÑÐµÐ»ÑÑ, Ð·Ð°ÐºÐ°Ð·ÑÐ¸ÐºÑ Ð¿ÐµÑÐµÐ´Ð°ÐµÑÑÑÂ Ð¿ÑÐ°Ð²Ð¾ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð¸
+ÑÐ°ÑÐ¿ÑÐ¾ÑÑÑÐ°Ð½ÐµÐ½Ð¸Ñ Ð¿ÑÐ¾Ð¸Ð·Ð²Ð¾Ð´Ð½ÑÑ Ð¿ÑÐ¾Ð´ÑÐºÑÐ¾Ð²Â (Ð½Ð°Ð¿ÑÐ¸Ð¼ÐµÑ, ÐºÐ°ÑÑÐ¾Ð³ÑÐ°ÑÐ¸ÑÐµÑÐºÐ¸Ñ Ð¿ÑÐ¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ð¹),
+Ð¿ÑÐ¸ ÑÑÐ»Ð¾Ð²Ð¸Ð¸, ÑÑÐ¾ ÑÑÐ¾ Ð½Ðµ ÑÐ²ÑÐ·Ð°Ð½Ð¾ Ñ Ð¼Ð¾Ð´Ð¸ÑÐ¸ÐºÐ°ÑÐ¸ÐµÐ¹ Ð¸ ÑÐ°ÑÐ¿ÑÐ¾ÑÑÑÐ°Ð½ÐµÐ½Ð¸ÐµÐ¼ Ð¸ÑÑÐ¾Ð´Ð½ÑÑ Ð´Ð°Ð½Ð½ÑÑ.&lt;/p&gt;
+&lt;h3&gt;ÐÑÐ¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°Ð½Ð¸Ðµ ÑÐµÑÐ²Ð¸ÑÐ°&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Ð¡Ð»Ð¾Ð¹ âBasic Coverageâ Ð¿ÑÐµÐ´ÑÑÐ°Ð²Ð»ÑÐµÑ ÑÐ¾Ð±Ð¾Ñ Ð±Ð°Ð·Ð¾Ð²Ð¾Ðµ Ð¿Ð¾ÐºÑÑÑÐ¸Ðµ &lt;a href=&quot;http://express.kosmosnimki.ru/?permalink=7POIV&quot;&gt;Kosmosnimki.Ru&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;ÐÐºÐ»Ð°Ð´ÐºÐ° âMy Layersâ Ð¿Ð¾Ð·Ð²Ð¾Ð»ÑÐµÑ Ð¾ÑÑÑÐµÑÑÐ²Ð»ÑÑÑ Ð´Ð¾ÑÑÑÐ¿ Ðº ÐÐ°ÑÐ¸Ð¼ Ð·Ð°ÐºÐ°Ð·Ð°Ð¼ Ñ
+  Ð¸ÑÐ¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼ Ð¸Ð½Ð´Ð¸Ð²Ð¸Ð´ÑÐ°Ð»ÑÐ½Ð¾Ð³Ð¾ ÐºÐ»ÑÑÐ° Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸Ð¸&lt;/li&gt;
+  &lt;li&gt;Ð¡Ð°Ð¼Ð¾ÑÑÐ¾ÑÑÐµÐ»ÑÐ½Ð¾ Ð¿Ð¾Ð´Ð¾Ð±ÑÐ°ÑÑ Ð¸Ð½ÑÐµÑÐµÑÑÑÑÐ¸Ðµ ÐÐ°Ñ Ð´Ð°Ð½Ð½ÑÐµ Ð¸ ÑÐ´ÐµÐ»Ð°ÑÑ Ð·Ð°ÐºÐ°Ð· Ð²Ñ Ð¼Ð¾Ð¶ÐµÑÐµ,
+  Ð·Ð°Ð¹Ð´Ñ Ð½Ð° ÑÐµÑÐ²Ð¸Ñ &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;ÐºÐ°ÑÐ°Ð»Ð¾Ð³Ð°&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;ÐÐ¾ÑÐ»Ðµ Ð¾Ð´Ð¾Ð±ÑÐµÐ½Ð¸Ñ Ð·Ð°ÐºÐ°Ð·Ð° Ð¸ Ð¿Ð¾Ð´Ð¿Ð¸ÑÐ°Ð½Ð¸Ñ Ð´Ð¾Ð³Ð¾Ð²Ð¾ÑÐ°, ÐÑ Ð¿Ð¾Ð»ÑÑÐ¸ÑÐµ Ð¿Ð¸ÑÑÐ¼Ð¾ Ñ
+  Ð¿Ð¾Ð´ÑÐ²ÐµÑÐ¶Ð´ÐµÐ½Ð¸ÐµÐ¼ Ð¾Ð± Ð°ÐºÑÐ¸Ð²Ð°ÑÐ¸Ð¸ API-ÐºÐ»ÑÑÐ°, ÑÐ¾Ð´ÐµÑÐ¶Ð°ÑÐµÐµ:
+  &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;ÑÑÑÐ»ÐºÑ Ð½Ð° ÐÐ°ÑÑ âÐ»Ð¸ÑÐ½ÑÑ ÐºÐ°ÑÑÑ Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñâ&lt;/li&gt;
+    &lt;li&gt;WMS ÑÑÑÐ»ÐºÑ Ð´Ð»Ñ Ð¿Ð¾Ð´ÐºÐ»ÑÑÐµÐ½Ð¸Ñ ÑÐ¿Ð¸ÑÐºÐ° ÑÐ»Ð¾ÐµÐ² Ð² ÐÐÐ¡&lt;/li&gt;
+    &lt;li&gt;Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑÑ Ð·Ð°ÐºÐ°Ð·Ð°ÑÑ Ð´Ð¾Ð¿Ð¾Ð»Ð½Ð¸ÑÐµÐ»ÑÐ½ÑÐµ ÑÑÐ»ÑÐ³Ð¸ Ð¿Ð¾ Ð¾Ð±ÑÐ°Ð±Ð¾ÑÐºÐµ Ð´Ð°Ð½Ð½ÑÑ Ð¸ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ
+    Ð¿ÑÐ¾Ð´ÑÐºÑÐ¾Ð²&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;ÐÐ° Ð´Ð¾Ð¿Ð¾Ð»Ð½Ð¸ÑÐµÐ»ÑÐ½Ð¾Ð¹ Ð¸Ð½ÑÐ¾ÑÐ¼Ð°ÑÐ¸ÐµÐ¹ Ð¾Ð±ÑÐ°ÑÐ°Ð¹ÑÐµÑÑ&amp;nbsp;&amp;mdash;Â &lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;
+Ð¸Ð»Ð¸ +7 495 7397385 (Ð¾ÑÐ´ÐµÐ» ÑÐ°ÑÐ¿ÑÐ¾ÑÑÑÐ°Ð½ÐµÐ½Ð¸Ñ Ð´Ð°Ð½Ð½ÑÑ ÐÐ¢Ð¦ Ð¡ÐÐÐÐ­ÐÐ¡)&lt;/p&gt;
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Важно!&lt;/strong&gt; Пространственные данные, доступные в сервисе, являются
+результатами интеллектуальной деятельности, которым предоставлена правовая охрана.
+В случае заказа данных происходит заключение договора с компанией-поставщиком ИТЦ
+СКАНЭКС. Кроме использования в своих целях, заказчику передается право создания и
+распространения производных продуктов (например, картографических произведений),
+при условии, что это не связано с модификацией и распространением исходных данных.&lt;/p&gt;
+&lt;h3&gt;Использование сервиса&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Слой “Basic Coverage” представляет собою базовое покрытие &lt;a href=&quot;http://express.kosmosnimki.ru/?permalink=7POIV&quot;&gt;Kosmosnimki.Ru&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Вкладка “My Layers” позволяет осуществлять доступ к Вашим заказам с
+  использованием индивидуального ключа авторизации&lt;/li&gt;
+  &lt;li&gt;Самостоятельно подобрать интересующие Вас данные и сделать заказ вы можете,
+  зайдя на сервис &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;каталога&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;После одобрения заказа и подписания договора, Вы получите письмо с
+  подтверждением об активации API-ключа, содержащее:
+  &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;ссылку на Вашу “личную карту пользователя”&lt;/li&gt;
+    &lt;li&gt;WMS ссылку для подключения списка слоев в ГИС&lt;/li&gt;
+    &lt;li&gt;возможность заказать дополнительные услуги по обработке данных и созданию
+    продуктов&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;За дополнительной информацией обращайтесь — &lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;
+или +7 495 7397385 (отдел распространения данных ИТЦ СКАНЭКС)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="aboutdialog.py" line="68"/>
+        <source>&lt;p&gt;Waiting for text&lt;/p&gt;
+</source>
+        <translation>&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Важно!&lt;/strong&gt; Пространственные данные, доступные в сервисе, являются
+результатами интеллектуальной деятельности, которым предоставлена правовая охрана.
+В случае заказа данных происходит заключение договора с компанией-поставщиком ИТЦ
+СКАНЭКС. Кроме использования в своих целях, заказчику передается право создания и
+распространения производных продуктов (например, картографических произведений),
+при условии, что это не связано с модификацией и распространением исходных данных.&lt;/p&gt;
+&lt;h3&gt;Использование сервиса&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Слой “Basic Coverage” представляет собою базовое покрытие &lt;a href=&quot;http://express.kosmosnimki.ru/?permalink=7POIV&quot;&gt;Kosmosnimki.Ru&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Вкладка “My Layers” позволяет осуществлять доступ к Вашим заказам с
+  использованием индивидуального ключа авторизации&lt;/li&gt;
+  &lt;li&gt;Самостоятельно подобрать интересующие Вас данные и сделать заказ вы можете,
+  зайдя на сервис &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;каталога&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;После одобрения заказа и подписания договора, Вы получите письмо с
+  подтверждением об активации API-ключа, содержащее:
+  &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;ссылку на Вашу “личную карту пользователя”&lt;/li&gt;
+    &lt;li&gt;WMS ссылку для подключения списка слоев в ГИС&lt;/li&gt;
+    &lt;li&gt;возможность заказать дополнительные услуги по обработке данных и созданию
+    продуктов&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;За дополнительной информацией обращайтесь — &lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;
+или +7 495 7397385 (отдел распространения данных ИТЦ СКАНЭКС)&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -33,17 +109,17 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
         <translation>Добавить выделенные слои на карту</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="231"/>
+        <location filename="addlayersdialog.py" line="239"/>
         <source>Coordinate Refrence System: %1</source>
         <translation>Система координат: %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="127"/>
+        <location filename="addlayersdialog.py" line="124"/>
         <source>Missed API key</source>
         <translation>Не задан API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="127"/>
+        <location filename="addlayersdialog.py" line="124"/>
         <source>Please enter your API key and try again</source>
         <translation>Пожалуйста, введите ваш API-ключ и попробуйте ещё раз</translation>
     </message>
@@ -55,7 +131,7 @@ called exiftool (&lt;a href=&quot;http://www.sno.phy.queensu.ca/~phil/exiftool/&
 %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="170"/>
+        <location filename="addlayersdialog.py" line="178"/>
         <source>Could not understand the response. The provider said:
 %1</source>
         <translation>Не удалось обработать ответ. Провайдер вернул:
@@ -103,64 +179,64 @@ p, li { white-space: pre-wrap; }
         <translation>API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="38"/>
+        <location filename="addlayersdialogbase.ui" line="45"/>
         <source>Save API key</source>
         <translation>Сохранить API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="47"/>
+        <location filename="addlayersdialogbase.ui" line="88"/>
         <source>Connect</source>
         <translation>Подключиться</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="54"/>
+        <location filename="addlayersdialogbase.ui" line="36"/>
         <source>Get API key</source>
         <translation>Получить API-ключ</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="67"/>
         <source>Layers</source>
-        <translation>Слои</translation>
+        <translation type="obsolete">Слои</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="86"/>
+        <location filename="addlayersdialogbase.ui" line="123"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="91"/>
+        <location filename="addlayersdialogbase.ui" line="128"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="96"/>
+        <location filename="addlayersdialogbase.ui" line="133"/>
         <source>Title</source>
         <translation>Заголовок</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="101"/>
+        <location filename="addlayersdialogbase.ui" line="138"/>
         <source>Abstract</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="111"/>
+        <location filename="addlayersdialogbase.ui" line="148"/>
         <source>Coordinate Refrence System</source>
         <translation>Система координат</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="131"/>
+        <location filename="addlayersdialogbase.ui" line="168"/>
         <source>Change...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="143"/>
         <source>Layer order</source>
-        <translation>Порядок слоёв</translation>
+        <translation type="obsolete">Порядок слоёв</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="153"/>
         <source>Layer</source>
-        <translation>Слой</translation>
+        <translation type="obsolete">Слой</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="154"/>
@@ -170,12 +246,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="addlayersdialogbase.ui" line="161"/>
         <source>Up</source>
-        <translation>Вверх</translation>
+        <translation type="obsolete">Вверх</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="168"/>
         <source>Down</source>
-        <translation>Вниз</translation>
+        <translation type="obsolete">Вниз</translation>
     </message>
     <message>
         <location filename="browserdialogbase.ui" line="14"/>
@@ -186,6 +262,16 @@ p, li { white-space: pre-wrap; }
         <location filename="browserdialogbase.ui" line="21"/>
         <source>about:blank</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="addlayersdialogbase.ui" line="54"/>
+        <source>Dataset</source>
+        <translation>Набор данных</translation>
+    </message>
+    <message>
+        <location filename="addlayersdialogbase.ui" line="66"/>
+        <source>Save map id</source>
+        <translation>Сохранить ID набора данных</translation>
     </message>
 </context>
 <context>
@@ -232,36 +318,41 @@ Plugin will not be enabled.</source>
 <context>
     <name>WmsProvider</name>
     <message>
-        <location filename="wmsprovider.py" line="102"/>
+        <location filename="wmsprovider.py" line="104"/>
         <source>empty capabilities document</source>
         <translation>пустой документ Capabitilies</translation>
     </message>
     <message>
-        <location filename="wmsprovider.py" line="114"/>
+        <location filename="wmsprovider.py" line="116"/>
         <source>
 Tried URL: %1</source>
         <translation>
 Проверяется URL: %1</translation>
     </message>
     <message>
-        <location filename="wmsprovider.py" line="124"/>
+        <location filename="wmsprovider.py" line="126"/>
         <source>%1 of %2 bytes of capabilities downloaded.</source>
         <translation>%1 из %2 байт загружено.</translation>
     </message>
     <message>
-        <location filename="wmsprovider.py" line="152"/>
+        <location filename="wmsprovider.py" line="154"/>
         <source>empty of capabilities: %1</source>
         <translation>пустой документ capabilities: %1</translation>
     </message>
     <message>
-        <location filename="wmsprovider.py" line="155"/>
+        <location filename="wmsprovider.py" line="157"/>
         <source>Download of capabilities failed: %1</source>
         <translation>Не удалось загрузить документ capabilities: %1</translation>
     </message>
     <message>
-        <location filename="wmsprovider.py" line="178"/>
+        <location filename="wmsprovider.py" line="180"/>
         <source>Dom Exception</source>
         <translation>Исключение при обработке DOM</translation>
+    </message>
+    <message>
+        <location filename="wmsprovider.py" line="51"/>
+        <source>WMS error</source>
+        <translation>Ошибка WMS</translation>
     </message>
 </context>
 </TS>

@@ -47,8 +47,8 @@ class ScanexExpressPlugin:
       self.QgisVersion = unicode( QGis.qgisVersion )[ 0 ]
 
     # For i18n support
-    userPluginPath = QFileInfo( QgsApplication.qgisUserDbFilePath() ).path() + "/python/plugins/scanexexpress"
-    systemPluginPath = QgsApplication.prefixPath() + "/python/plugins/scanexexpress"
+    userPluginPath = QFileInfo( QgsApplication.qgisUserDbFilePath() ).path() + "/python/plugins/scanex_express"
+    systemPluginPath = QgsApplication.prefixPath() + "/python/plugins/scanex_express"
 
     overrideLocale = QSettings().value( "locale/overrideFlag", QVariant( False ) ).toBool()
     if not overrideLocale:
@@ -61,10 +61,9 @@ class ScanexExpressPlugin:
     else:
       translationPath = systemPluginPath + "/i18n/scanexexpress_" + localeFullName + ".qm"
 
-    self.localePath = translationPath
-    if QFileInfo( self.localePath ).exists():
+    if QFileInfo( translationPath ).exists():
       self.translator = QTranslator()
-      self.translator.load( self.localePath )
+      self.translator.load( translationPath )
       QCoreApplication.installTranslator( self.translator )
 
   def initGui( self ):
