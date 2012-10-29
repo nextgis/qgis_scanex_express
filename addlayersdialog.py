@@ -291,7 +291,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       layerName = item.text( 1 )
       layerTitle = item.text( 2 )
 
-      uri = QString( "crs=%1&featureCount=10&format=image/png&layers=%2%3").arg( self.crs ).arg( layerName ).arg( url )
+      uri = QString( "crs=%1&featureCount=10&format=image/png&layers=%2&styles=&url=%3").arg( self.crs ).arg( layerName ).arg( url )
       layer = QgsRasterLayer( uri, unicode(layerTitle), "wms" )
 
       QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
