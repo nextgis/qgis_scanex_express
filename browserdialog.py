@@ -38,5 +38,17 @@ class BrowserDialog( QDialog, Ui_Dialog ):
     QDialog.__init__( self )
     self.setupUi( self )
 
-    self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=1&redirect_uri=http://localhost/test&scope=rety&state=basic", QUrl.StrictMode) )
-    #self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=1&redirect_uri=http%3A%2F%2Flocalhost%2Ftest&scope=rety&state=basic", QUrl.StrictMode) )
+    self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=6472&redirect_uri=http%3A%2F%2Flocalhost%3A1760%2FSite%2FoAuth%2FoAuthCallback.ashx%3Fcallback%3Dhttp%3A%2F%2Flocalhost%2Fapi%2FoAuthCallback.html&scope=basic&state=XAYLTRT6&partnerID=3be2ac3e-22cf-466c-9dda-66d0ec107352", QUrl.StrictMode ) )
+
+    self.webView.urlChanged.connect(self.processUrl)
+
+  def processUrl(self, url):
+    print "URL changed", unicode(url.toString())
+
+    state = url.encodedQueryItemValue("state")
+    print "STATE", state
+    if state != "XAYLTRT6":
+      print "Error"
+      return
+
+    code = url.encodedQueryItemValue("code")
