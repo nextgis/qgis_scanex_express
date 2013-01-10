@@ -27,7 +27,6 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from PyQt4.QtNetwork import *
 
 from qgis.core import *
 from qgis.gui import *
@@ -48,42 +47,15 @@ class BrowserDialog( QDialog, Ui_Dialog ):
       self.webView.urlChanged.connect(self.processUrl)
 
   def processUrl(self, url):
-    print "URL CHANGED:\n", url.toString()
+    self.webView.stop()
 
     mystate = url.queryItemValue( "state" )
     if mystate != "XAYLTRT6":
       print "state error", mystate
-      return
+      self.done( QDialog.Rejected )
 
-    mycode = url.encodedQueryItemValue( "code" )
-    mycode = url.queryItemValue( "code" )
-    print "CODE:\n", mycode
+    self.mycode = url.queryItemValue( "code" )
+    self.done( QDialog.Accepted )
 
-    baseUrl = QUrl("http://my.kosmosnimki.ru/oAuth/AccessToken?client_id=6472&client_secret=45e96f17-26eb-4696-83fb-c5678adf4dda&code=" + mycode)
-    request = QNetworkRequest( baseUrl )
-    self.reply = QgsNetworkAccessManager.instance().get( request )
-
-    self.reply.finished.connect( self.replyFinished )
-    while self.reply:
-      QCoreApplication.processEvents( QEventLoop.ExcludeUserInputEvents )
-
-  def replyFinished( self ):
-    if self.reply.error() == QNetworkReply.NoError:
-      print "reply ok"
-
-      redirect = self.reply.attribute( QNetworkRequest.RedirectionTargetAttribute )
-      if not redirect.isNull():
-        print "request redirected"
-        print redirect.toUrl().toString()
-
-        request = QNetworkRequest( redirect.toUrl() )
-        self.reply.deleteLater()
-        self.reply = QgsNetworkAccessManager.instance().get( request )
-        self.reply.finished.connect( self.replyFinished )
-        return
-
-      response = self.reply.readAll()
-      print response
-
-    self.reply.deleteLater()
-    self.reply = None
+  def getSecretCode( self ):
+    return self.mycode

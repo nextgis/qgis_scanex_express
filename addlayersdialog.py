@@ -25,6 +25,8 @@
 #
 #******************************************************************************
 
+import sys
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -36,6 +38,8 @@ import browserdialog
 from ui_addlayersdialogbase import Ui_Dialog
 
 import wmsprovider
+
+import requests
 
 class AddLayersDialog( QDialog, Ui_Dialog ):
   def __init__( self, iface ):
@@ -87,13 +91,80 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     qgisSrs.createFromOgcWmsCrs( authId )
     return qgisSrs.description()
 
-  #def registerInSystem( self ):
-  #  QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Account/Registration?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
-
   def getApiKey( self ):
-    #QDesktopServices.openUrl( QUrl( "http://my.kosmosnimki.ru/Apikey?partnerID=4f66b470-1d10-4fb6-9037-a4b152f7ca17" ) )
-    dlg = browserdialog.BrowserDialog()
-    dlg.exec_()
+    d = browserdialog.BrowserDialog()
+    if not d.exec_() == QDialog.Accepted:
+      return
+
+    code = unicode( d.getSecretCode() )
+
+    url = "http://my.kosmosnimki.ru/oAuth/AccessToken?client_id=6472&client_secret=45e96f17-26eb-4696-83fb-c5678adf4dda&code=" + code
+
+    try:
+      res = requests.get( url )
+    except:
+      print "requests exception", sys.exc_info()
+
+    if res.json is None:
+      QMessageBox.information( self,
+                               self.tr( "Server reply" ),
+                               self.tr( "Invalid server reply" )
+                             )
+      return
+
+    if res.json[ "Status" ] != "OK":
+      r = res.json[ "Result" ]
+      QMessageBox.information( self,
+                               self.tr( "Server reply" ),
+                               self.tr( "Invalid server reply:\n%1" ).arg( r[ "Message" ] )
+                             )
+      return
+
+    token = res.json[ "Result" ][ "access_token" ]
+
+    # try to get API keys
+    url = "http://my.kosmosnimki.ru/Handler/GetAPIKeys?token=" + token
+    try:
+      res = requests.get( url )
+    except:
+      print "requests exception", sys.exc_info()
+
+    if res.json is None:
+      QMessageBox.information( self,
+                               self.tr( "Server reply" ),
+                               self.tr( "Invalid server reply" )
+                             )
+      return
+
+    if res.json[ "Status" ] != "OK":
+      r = res.json[ "Result" ]
+      QMessageBox.information( self,
+                               self.tr( "Server reply" ),
+                               self.tr( "Invalid server reply:\n%1" ).arg( r[ "Message" ] )
+                             )
+      return
+
+    r = res.json[ "Result" ]
+    found = False
+    apikey = ""
+    if len( r ) > 0:
+      if len( r ) > 1:
+        for key in r:
+          apikey = key[ "Apikey" ]
+          found = key[ "IsActive" ]
+          if found:
+            break
+      else:
+        apikey = r[ "Apikey" ]
+        found = key[ "IsActive" ]
+
+      if not found:
+        QMessageBox.information( self,
+                                 self.tr( "No active keys" ),
+                                 self.tr( "There are no active keys in your account" )
+                               )
+      else:
+        self.leApiKey.setText( apikey )
 
   def changeCrs( self ):
     mySelector = QgsGenericProjectionSelector( self )
@@ -140,7 +211,6 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     else:
       url = QString( "http://maps.kosmosnimki.ru/TileService.ashx/apikey%1?SERVICE=WMS&REQUEST=GetCapabilities&map=%2" ).arg( apiKey ).arg(mapId)
 
-    print "URL", url
     uri.setParam( "url", url  )
 
     provider = wmsprovider.WmsProvider( uri.encodedUri() )
@@ -291,7 +361,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       layerName = item.text( 1 )
       layerTitle = item.text( 2 )
 
-      uri = QString( "crs=%1&featureCount=10&format=image/png&layers=%2&styles=&url=%3").arg( self.crs ).arg( layerName ).arg( url )
+      uri = QString( "crs=%1&featureCount=10&format=image/png&layers=%2%3").arg( self.crs ).arg( layerName ).arg( url )
       layer = QgsRasterLayer( uri, unicode(layerTitle), "wms" )
 
       QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
