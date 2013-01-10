@@ -165,6 +165,31 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
                                )
       else:
         self.leApiKey.setText( apikey )
+    else:
+      url = "http://my.kosmosnimki.ru/Handler/CreateDirect?token=" + token
+
+      try:
+        res = requests.get( url )
+      except:
+        print "requests exception", sys.exc_info()
+
+      if res.json is None:
+        QMessageBox.information( self,
+                                 self.tr( "Server reply" ),
+                                 self.tr( "Invalid server reply" )
+                               )
+        return
+
+      if res.json[ "Status" ] != "OK":
+        r = res.json[ "Result" ]
+        QMessageBox.information( self,
+                                 self.tr( "Server reply" ),
+                                 self.tr( "Invalid server reply:\n%1" ).arg( r[ "Message" ] )
+                               )
+        return
+
+      r = res.json[ "Result" ]
+      self.leApiKey.setText( r[ "Apikey" ] )
 
   def changeCrs( self ):
     mySelector = QgsGenericProjectionSelector( self )
