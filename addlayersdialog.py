@@ -155,7 +155,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
           if found:
             break
       else:
-        apikey = r[ "Apikey" ]
+        apikey = key[ "Apikey" ]
         found = key[ "IsActive" ]
 
       if not found:
