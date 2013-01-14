@@ -41,24 +41,29 @@ class BrowserDialog( QDialog, Ui_Dialog ):
 
     self.__setupProxy()
 
-    self.webView.loadFinished.connect(self.manageSignals)
     self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=6472&redirect_uri=http%3A%2F%2Flocalhost%3A1760%2FSite%2FoAuth%2FoAuthCallback.ashx%3Fcallback%3Dhttp%3A%2F%2Flocalhost%2Fapi%2FoAuthCallback.html&scope=basic&state=XAYLTRT6&partnerID=3be2ac3e-22cf-466c-9dda-66d0ec107352", QUrl.StrictMode) )
-
-  def manageSignals(self, loaded):
-    if loaded:
-      self.webView.loadFinished.disconnect(self.manageSignals)
-      self.webView.urlChanged.connect(self.processUrl)
+    self.webView.urlChanged.connect(self.processUrl)
 
   def processUrl(self, url):
+    print "New URL\n", url
+
+    if url.toString() == "http://my.kosmosnimki.ru/Account/LoginDialog?client_id=6472&redirect_uri=http%3A%2F%2Flocalhost%3A1760%2FSite%2FoAuth%2FoAuthCallback.ashx%3Fcallback%3Dhttp%3A%2F%2Flocalhost%2Fapi%2FoAuthCallback.html&scope=basic&state=XAYLTRT6&partnerID=3be2ac3e-22cf-466c-9dda-66d0ec107352":
+      return
+
     self.webView.stop()
 
-    mystate = url.queryItemValue( "state" )
-    if mystate != "XAYLTRT6":
-      print "state error", mystate
-      self.done( QDialog.Rejected )
+    if url.hasQueryItem( "code" ):
+      mystate = url.queryItemValue( "state" )
+      if mystate != "XAYLTRT6":
+        print "state error", mystate
+        self.done( QDialog.Rejected )
 
-    self.mycode = url.queryItemValue( "code" )
-    self.done( QDialog.Accepted )
+      self.mycode = url.queryItemValue( "code" )
+      self.done( QDialog.Accepted )
+    elif url.hasQueryItem( "error_reason" ):
+      self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=6472&redirect_uri=http%3A%2F%2Flocalhost%3A1760%2FSite%2FoAuth%2FoAuthCallback.ashx%3Fcallback%3Dhttp%3A%2F%2Flocalhost%2Fapi%2FoAuthCallback.html&scope=basic&state=XAYLTRT6&partnerID=3be2ac3e-22cf-466c-9dda-66d0ec107352", QUrl.StrictMode) )
+    else:
+      self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=6472&redirect_uri=http%3A%2F%2Flocalhost%3A1760%2FSite%2FoAuth%2FoAuthCallback.ashx%3Fcallback%3Dhttp%3A%2F%2Flocalhost%2Fapi%2FoAuthCallback.html&scope=basic&state=XAYLTRT6&partnerID=3be2ac3e-22cf-466c-9dda-66d0ec107352", QUrl.StrictMode) )
 
   def getSecretCode( self ):
     return self.mycode
