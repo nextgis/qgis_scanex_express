@@ -27,6 +27,7 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyQt4.QtNetwork import *
 
 from qgis.core import *
 from qgis.gui import *
@@ -37,6 +38,8 @@ class BrowserDialog( QDialog, Ui_Dialog ):
   def __init__( self ):
     QDialog.__init__( self )
     self.setupUi( self )
+
+    self.__setupProxy()
 
     self.webView.loadFinished.connect(self.manageSignals)
     self.webView.load( QUrl("http://my.kosmosnimki.ru/Account/LoginDialog?client_id=6472&redirect_uri=http%3A%2F%2Flocalhost%3A1760%2FSite%2FoAuth%2FoAuthCallback.ashx%3Fcallback%3Dhttp%3A%2F%2Flocalhost%2Fapi%2FoAuthCallback.html&scope=basic&state=XAYLTRT6&partnerID=3be2ac3e-22cf-466c-9dda-66d0ec107352", QUrl.StrictMode) )
@@ -59,3 +62,27 @@ class BrowserDialog( QDialog, Ui_Dialog ):
 
   def getSecretCode( self ):
     return self.mycode
+
+  def __setupProxy(self):
+    settings = QSettings()
+    if settings.value("/proxyEnabled", False).toBool():
+      proxyHost = settings.value("/proxyHost", "").toString()
+      proxyPost = settings.value("/proxyPort", "").toString().toInt()[0]
+      proxyUser = settings.value("/proxyUser", "").toString()
+      proxyPass = settings.value("/proxyPassword", "").toString()
+      proxyTypeString = settings.value( "proxy/proxyType", "" ).toString()
+
+      proxyType = QNetworkProxy.NoProxy
+      if proxyTypeString == "DefaultProxy":
+        proxyType = QNetworkProxy.DefaultProxy
+      elif proxyTypeString == "Socks5Proxy":
+        proxyType = QNetworkProxy.Socks5Proxy
+      elif proxyTypeString == "HttpProxy":
+        proxyType = QNetworkProxy.HttpProxy
+      elif proxyTypeString == "HttpCachingProxy":
+        proxyType = QNetworkProxy.HttpCachingProxy
+      elif proxyTypeString == "FtpCachingProxy":
+        proxyType = QNetworkProxy.FtpCachingProxy
+
+      proxy = QNetworkProxy( proxyType, proxyHost, proxyPort, proxyUser, proxyPass )
+      self.webView.page().networkAccessManager().setProxy( proxy )

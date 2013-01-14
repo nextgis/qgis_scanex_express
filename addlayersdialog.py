@@ -49,6 +49,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
 
     self.crs = ""
     self.crss = []
+    self.proxy = None
 
     self.btnAdd = QPushButton( self.tr( "Add" ) )
     self.btnAdd.setToolTip( self.tr( "Add selected layers to map" ) )
@@ -62,6 +63,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     self.lstLayers.itemSelectionChanged.connect( self.selectionChanged )
 
     self.manageGui()
+    self.__setupProxy()
 
   def manageGui( self ):
     settings = QSettings( "NextGIS", "ScanexExpress" )
@@ -101,7 +103,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     url = "http://my.kosmosnimki.ru/oAuth/AccessToken?client_id=6472&client_secret=45e96f17-26eb-4696-83fb-c5678adf4dda&code=" + code
 
     try:
-      res = requests.get( url )
+      res = requests.get( url, proxies=self.proxy )
     except:
       print "requests exception", sys.exc_info()
 
@@ -125,7 +127,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
     # try to get API keys
     url = "http://my.kosmosnimki.ru/Handler/GetAPIKeys?token=" + token
     try:
-      res = requests.get( url )
+      res = requests.get( url, proxies=self.proxy )
     except:
       print "requests exception", sys.exc_info()
 
@@ -155,6 +157,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
           if found:
             break
       else:
+        key = r[0]
         apikey = key[ "Apikey" ]
         found = key[ "IsActive" ]
 
@@ -169,7 +172,7 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       url = "http://my.kosmosnimki.ru/Handler/CreateDirect?token=" + token
 
       try:
-        res = requests.get( url )
+        res = requests.get( url, proxies=self.proxy )
       except:
         print "requests exception", sys.exc_info()
 
@@ -390,3 +393,16 @@ class AddLayersDialog( QDialog, Ui_Dialog ):
       layer = QgsRasterLayer( uri, unicode(layerTitle), "wms" )
 
       QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
+
+  def __setupProxy(self):
+    settings = QSettings()
+    if settings.value("/proxyEnabled", False).toBool():
+      proxyType = settings.value("/proxyType", "Default proxy").toString()
+      proxyHost = settings.value("/proxyHost", "").toString()
+      proxyPost = settings.value("/proxyPort", 0).toUInt()[0]
+      proxyUser = settings.value("/proxyUser", "").toString()
+      proxyPass = settings.value("/proxyPassword", "").toString()
+
+      # setup proxy
+      connectionString = "http://%s:%s@%s:%s" % (proxyUser, proxyPass, proxyHost, proxyPort)
+      self.proxy = {"http" : conectionString}
