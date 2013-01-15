@@ -43,6 +43,3 @@ clean:
 package:
 	cd .. && rm -f *.zip && zip -r scanex_express.zip scanex_express -x \*.pyc \*.ts \*.ui \*.qrc \*.pro \*~ \*.git\* \*Makefile*
 	mv ../scanex_express.zip .
-
-upload:
-	plugin_uploader.py scanex_express.zip
