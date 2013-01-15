@@ -99,27 +99,27 @@
 <context>
     <name>AddLayersDialog</name>
     <message>
-        <location filename="addlayersdialog.py" line="49"/>
+        <location filename="addlayersdialog.py" line="54"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="50"/>
+        <location filename="addlayersdialog.py" line="55"/>
         <source>Add selected layers to map</source>
         <translation>Добавить выделенные слои на карту</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="239"/>
+        <location filename="addlayersdialog.py" line="337"/>
         <source>Coordinate Refrence System: %1</source>
         <translation>Система координат: %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="124"/>
+        <location filename="addlayersdialog.py" line="223"/>
         <source>Missed API key</source>
         <translation>Не задан API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="124"/>
+        <location filename="addlayersdialog.py" line="223"/>
         <source>Please enter your API key and try again</source>
         <translation>Пожалуйста, введите ваш API-ключ и попробуйте ещё раз</translation>
     </message>
@@ -131,11 +131,38 @@
 %1</translation>
     </message>
     <message>
-        <location filename="addlayersdialog.py" line="178"/>
+        <location filename="addlayersdialog.py" line="276"/>
         <source>Could not understand the response. The provider said:
 %1</source>
         <translation>Не удалось обработать ответ. Провайдер вернул:
 %1</translation>
+    </message>
+    <message>
+        <location filename="addlayersdialog.py" line="188"/>
+        <source>Server reply</source>
+        <translation>Ответ сервера</translation>
+    </message>
+    <message>
+        <location filename="addlayersdialog.py" line="180"/>
+        <source>Invalid server reply</source>
+        <translation>Неверный ответ сервера</translation>
+    </message>
+    <message>
+        <location filename="addlayersdialog.py" line="188"/>
+        <source>Invalid server reply:
+%1</source>
+        <translation>Неверный ответ сервера:
+%1</translation>
+    </message>
+    <message>
+        <location filename="addlayersdialog.py" line="165"/>
+        <source>No active keys</source>
+        <translation>Отсутствуют активные ключи</translation>
+    </message>
+    <message>
+        <location filename="addlayersdialog.py" line="165"/>
+        <source>There are no active keys in your account</source>
+        <translation>У вас нет ни одного активного ключа</translation>
     </message>
 </context>
 <context>
@@ -179,17 +206,17 @@ p, li { white-space: pre-wrap; }
         <translation>API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="45"/>
+        <location filename="addlayersdialogbase.ui" line="41"/>
         <source>Save API key</source>
         <translation>Сохранить API-ключ</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="88"/>
+        <location filename="addlayersdialogbase.ui" line="84"/>
         <source>Connect</source>
         <translation>Подключиться</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="36"/>
+        <location filename="addlayersdialogbase.ui" line="32"/>
         <source>Get API key</source>
         <translation>Получить API-ключ</translation>
     </message>
@@ -199,32 +226,32 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Слои</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="123"/>
+        <location filename="addlayersdialogbase.ui" line="119"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="128"/>
+        <location filename="addlayersdialogbase.ui" line="124"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="133"/>
+        <location filename="addlayersdialogbase.ui" line="129"/>
         <source>Title</source>
         <translation>Заголовок</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="138"/>
+        <location filename="addlayersdialogbase.ui" line="134"/>
         <source>Abstract</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="148"/>
+        <location filename="addlayersdialogbase.ui" line="144"/>
         <source>Coordinate Refrence System</source>
         <translation>Система координат</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="168"/>
+        <location filename="addlayersdialogbase.ui" line="164"/>
         <source>Change...</source>
         <translation>Изменить...</translation>
     </message>
@@ -264,12 +291,12 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="54"/>
+        <location filename="addlayersdialogbase.ui" line="50"/>
         <source>Dataset</source>
         <translation>Набор данных</translation>
     </message>
     <message>
-        <location filename="addlayersdialogbase.ui" line="66"/>
+        <location filename="addlayersdialogbase.ui" line="62"/>
         <source>Save map id</source>
         <translation>Сохранить ID набора данных</translation>
     </message>
@@ -279,10 +306,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="scanexexpress.py" line="73"/>
         <source>ScanexExpress: Error</source>
-        <translation>ScanexExpress: Ошибка</translation>
+        <translation type="obsolete">ScanexExpress: Ошибка</translation>
     </message>
     <message>
-        <location filename="scanexexpress.py" line="73"/>
+        <location filename="scanexexpress.py" line="72"/>
         <source>Quantum GIS %1 detected.
 </source>
         <translation>Обнаружена QGIS версии %1.</translation>
@@ -291,28 +318,38 @@ p, li { white-space: pre-wrap; }
         <location filename="scanexexpress.py" line="73"/>
         <source>This version of ScanexExpress requires at least QGIS version 1.8.0
 Plugin will not be enabled.</source>
-        <translation>Эта версия ScanexExpress требует наличия QGIS версии 1.8.0 или старше
+        <translation type="obsolete">Эта версия ScanexExpress требует наличия QGIS версии 1.8.0 или старше
 Модуль не будет загружен.</translation>
     </message>
     <message>
-        <location filename="scanexexpress.py" line="79"/>
+        <location filename="scanexexpress.py" line="78"/>
         <source>Basic coverage</source>
         <translation>Базовое покрытие</translation>
     </message>
     <message>
-        <location filename="scanexexpress.py" line="84"/>
+        <location filename="scanexexpress.py" line="83"/>
         <source>My layers</source>
         <translation>Мои слои</translation>
     </message>
     <message>
-        <location filename="scanexexpress.py" line="89"/>
+        <location filename="scanexexpress.py" line="88"/>
         <source>About ScanexExpress...</source>
         <translation>О ScanexExpress...</translation>
     </message>
     <message>
-        <location filename="scanexexpress.py" line="109"/>
+        <location filename="scanexexpress.py" line="108"/>
         <source>ScanexExpress</source>
         <translation>ScanexExpress</translation>
+    </message>
+    <message>
+        <location filename="scanexexpress.py" line="72"/>
+        <source>Error</source>
+        <translation>Ошибка</translation>
+    </message>
+    <message>
+        <location filename="scanexexpress.py" line="72"/>
+        <source>This version of ScanexExpress requires at least QGIS version 1.9.0. Plugin will not be enabled.</source>
+        <translation>Эта версия ScanexExpress требует наличия QGIS 1.9.0. Модуль не будет загружен.</translation>
     </message>
 </context>
 <context>
