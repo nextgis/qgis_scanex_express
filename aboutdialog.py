@@ -44,7 +44,7 @@ class AboutDialog( QDialog, Ui_Dialog ):
     self.lblVersion.setText( self.tr( "Version: %1" ).arg( version() ) )
     doc = QTextDocument()
     doc.setHtml( self.getAboutText() )
-    self.textEdit.setDocument( doc )
+    self.textBrowser.setDocument( doc )
 
     self.buttonBox.helpRequested.connect( self.openHelp )
 
