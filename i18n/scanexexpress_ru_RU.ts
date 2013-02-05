@@ -68,6 +68,67 @@
         <location filename="aboutdialog.py" line="68"/>
         <source>&lt;p&gt;Waiting for text&lt;/p&gt;
 </source>
+        <translation type="obsolete">&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Важно!&lt;/strong&gt; Пространственные данные, доступные в сервисе, являются
+результатами интеллектуальной деятельности, которым предоставлена правовая охрана.
+В случае заказа данных происходит заключение договора с компанией-поставщиком ИТЦ
+СКАНЭКС. Кроме использования в своих целях, заказчику передается право создания и
+распространения производных продуктов (например, картографических произведений),
+при условии, что это не связано с модификацией и распространением исходных данных.&lt;/p&gt;
+&lt;h3&gt;Использование сервиса&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Слой “Basic Coverage” представляет собою базовое покрытие &lt;a href=&quot;http://express.kosmosnimki.ru/?permalink=7POIV&quot;&gt;Kosmosnimki.Ru&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Вкладка “My Layers” позволяет осуществлять доступ к Вашим заказам с
+  использованием индивидуального ключа авторизации&lt;/li&gt;
+  &lt;li&gt;Самостоятельно подобрать интересующие Вас данные и сделать заказ вы можете,
+  зайдя на сервис &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;каталога&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;После одобрения заказа и подписания договора, Вы получите письмо с
+  подтверждением об активации API-ключа, содержащее:
+  &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;ссылку на Вашу “личную карту пользователя”&lt;/li&gt;
+    &lt;li&gt;WMS ссылку для подключения списка слоев в ГИС&lt;/li&gt;
+    &lt;li&gt;возможность заказать дополнительные услуги по обработке данных и созданию
+    продуктов&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;За дополнительной информацией обращайтесь — &lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;
+или +7 495 7397385 (отдел распространения данных ИТЦ СКАНЭКС)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="aboutdialog.py" line="68"/>
+        <source>&lt;h2&gt;Express Kosmosnimki&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Important!&lt;/strong&gt; All spatial data products that are available
+within the service have the intellectual property copyright and under the
+legal protection. In case of commercial data use it is compulsory to sign an
+agreement with company-provider Research &amp; Development Center &quot;ScanEx&quot;. The
+customer is granted with a right to use the data for his or her purposes and
+for creation and distribution of derivative products (for instance,
+cartographical products), provided that it does not have anything with
+modification and distribution of original data products.&lt;/p&gt;
+&lt;h3&gt;Usage of the service&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;The layer &quot;Basic coverage Kosmosnimki.ru&quot; represents free satellite
+  imagery coverage&lt;/li&gt;
+  &lt;li&gt;Option &quot;My Layers&quot; allows getting an access to your data orders with
+  the authorization key&lt;/li&gt;
+  &lt;li&gt;By yourself you can select the data you are looking for and make and
+  order going onto the service of &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;Express Kosmosnimkiâs catalog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;After the approval of an order and signing of an agreement you will
+  receive an email with confirmation that your personal key has been
+  activated. The email contains the following information:
+    &lt;ul&gt;
+      &lt;li&gt;A link to your &quot;Userâs personal map&quot; on the web-service;&lt;/li&gt;
+      &lt;li&gt;WMS/WFS link for connection of layers into GIS;&lt;/li&gt;
+      &lt;li&gt;A possibility to order additional services of dataâs processing
+      and products&apos; creation.&lt;/li&gt;
+    &lt;ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For the additional information please contact us:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;+7 495 7397385 (The department of data&apos;s distribution RDC ScanEx)&lt;/p&gt;
+</source>
         <translation>&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Важно!&lt;/strong&gt; Пространственные данные, доступные в сервисе, являются
 результатами интеллектуальной деятельности, которым предоставлена правовая охрана.
@@ -170,35 +231,17 @@
     <message>
         <location filename="aboutdialogbase.ui" line="14"/>
         <source>About Scanex Express</source>
-        <translation>О Scanex Express</translation>
+        <translation type="obsolete">О Scanex Express</translation>
     </message>
     <message>
-        <location filename="aboutdialogbase.ui" line="50"/>
+        <location filename="aboutdialogbase.ui" line="44"/>
         <source>TextLabel</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="aboutdialogbase.ui" line="36"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Droid Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Scanex Express&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="aboutdialogbase.ui" line="119"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Droid Sans&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="14"/>
         <source>Load layers from Scanex</source>
-        <translation>Загрузка слоёв с сервисов Scanex</translation>
+        <translation type="obsolete">Загрузка слоёв с сервисов Scanex</translation>
     </message>
     <message>
         <location filename="addlayersdialogbase.ui" line="22"/>
@@ -300,6 +343,34 @@ p, li { white-space: pre-wrap; }
         <source>Save map id</source>
         <translation>Сохранить ID набора данных</translation>
     </message>
+    <message>
+        <location filename="aboutdialogbase.ui" line="14"/>
+        <source>About ScanexExpress</source>
+        <translation>О Scanex Express</translation>
+    </message>
+    <message>
+        <location filename="aboutdialogbase.ui" line="30"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Droid Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Scanex Express&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="aboutdialogbase.ui" line="67"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Droid Sans&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans Serif&apos;; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="addlayersdialogbase.ui" line="14"/>
+        <source>Express Kosmosnimki</source>
+        <translation>Экспресс Космоснимки</translation>
+    </message>
 </context>
 <context>
     <name>ScanexExpress</name>
@@ -350,6 +421,11 @@ Plugin will not be enabled.</source>
         <location filename="scanexexpress.py" line="72"/>
         <source>This version of ScanexExpress requires at least QGIS version 1.9.0. Plugin will not be enabled.</source>
         <translation>Эта версия ScanexExpress требует наличия QGIS 1.9.0. Модуль не будет загружен.</translation>
+    </message>
+    <message>
+        <location filename="scanexexpress.py" line="114"/>
+        <source>Basic coverage Kosmosnimki.Ru</source>
+        <translation>Базовое покрытие Kosmosnimki.Ru</translation>
     </message>
 </context>
 <context>

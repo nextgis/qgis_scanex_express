@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Load layers from Scanex</string>
+   <string>Express Kosmosnimki</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

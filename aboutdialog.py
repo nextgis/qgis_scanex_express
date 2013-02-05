@@ -65,5 +65,35 @@ class AboutDialog( QDialog, Ui_Dialog ):
       QDesktopServices.openUrl( QUrl( "http://scanex.ru" ) )
 
   def getAboutText( self ):
-    return self.tr( """<p>Waiting for text</p>
+    return self.tr( """<h2>Express Kosmosnimki</h2>
+<p><strong>Important!</strong> All spatial data products that are available
+within the service have the intellectual property copyright and under the
+legal protection. In case of commercial data use it is compulsory to sign an
+agreement with company-provider Research & Development Center "ScanEx". The
+customer is granted with a right to use the data for his or her purposes and
+for creation and distribution of derivative products (for instance,
+cartographical products), provided that it does not have anything with
+modification and distribution of original data products.</p>
+<h3>Usage of the service</h3>
+<ol>
+  <li>The layer "Basic coverage Kosmosnimki.ru" represents free satellite
+  imagery coverage</li>
+  <li>Option "My Layers" allows getting an access to your data orders with
+  the authorization key</li>
+  <li>By yourself you can select the data you are looking for and make and
+  order going onto the service of <a href="http://express.kosmosnimki.ru/">Express Kosmosnimki’s catalog</a></li>
+  <li>After the approval of an order and signing of an agreement you will
+  receive an email with confirmation that your personal key has been
+  activated. The email contains the following information:
+    <ul>
+      <li>A link to your "User’s personal map" on the web-service;</li>
+      <li>WMS/WFS link for connection of layers into GIS;</li>
+      <li>A possibility to order additional services of data’s processing
+      and products' creation.</li>
+    <ul>
+  </li>
+</ol>
+<p>For the additional information please contact us:</p>
+<p><a href="mailto:sales@scanex.ru">sales@scanex.ru</a></p>
+<p>+7 495 7397385 (The department of data's distribution RDC ScanEx)</p>
 """)
