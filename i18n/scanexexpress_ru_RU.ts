@@ -129,7 +129,7 @@ modification and distribution of original data products.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;+7 495 7397385 (The department of data&apos;s distribution RDC ScanEx)&lt;/p&gt;
 </source>
-        <translation>&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
+        <translation type="obsolete">&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Важно!&lt;/strong&gt; Пространственные данные, доступные в сервисе, являются
 результатами интеллектуальной деятельности, которым предоставлена правовая охрана.
 В случае заказа данных происходит заключение договора с компанией-поставщиком ИТЦ
@@ -155,6 +155,75 @@ modification and distribution of original data products.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;За дополнительной информацией обращайтесь — &lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;
 или +7 495 7397385 (отдел распространения данных ИТЦ СКАНЭКС)&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="aboutdialog.py" line="68"/>
+        <source>&lt;h2&gt;Express Kosmosnimki&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Important!&lt;/strong&gt; All spatial data products that are available
+within the service have the intellectual property copyright and under the
+legal protection. In case of commercial data use it is compulsory to sign an
+agreement with company-provider Research &amp; Development Center &quot;ScanEx&quot;. The
+customer is granted with a right to use the data for his or her purposes and
+for creation and distribution of derivative products (for instance,
+cartographical products), provided that it does not have anything with
+modification and distribution of original data products.&lt;/p&gt;
+&lt;h3&gt;Usage of the service&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;The layer &quot;Basic coverage Kosmosnimki.ru&quot; represents free satellite
+  imagery coverage&lt;/li&gt;
+  &lt;li&gt;Option &quot;My Layers&quot; allows getting an access to your data orders with
+  the authorization key&lt;/li&gt;
+  &lt;li&gt;By yourself you can select the data you are looking for and make and
+  order going onto the service of &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;Express Kosmosnimkiâs catalog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;After the approval of an order and signing of an agreement you will
+  receive an email with confirmation that your personal key has been
+  activated. The email contains the following information:
+    &lt;ul&gt;
+      &lt;li&gt;A link to your &quot;Userâs personal map&quot; on the web-service;&lt;/li&gt;
+      &lt;li&gt;WMS/WFS link for connection of layers into GIS;&lt;/li&gt;
+      &lt;li&gt;A possibility to order additional services of dataâs processing
+      and products&apos; creation.&lt;/li&gt;
+    &lt;ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For the additional information please contact us:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;+7 495 7397385 (The department of data&apos;s distribution RDC ScanEx)&lt;/p&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Developers&lt;/strong&gt;: &lt;a href=&quot;http://nextgis.org&quot;&gt;NextGIS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Homepage&lt;/strong&gt;: &lt;a href=&quot;http://hub.qgis.org/projects/scanexexpress&quot;&gt;http://hub.qgis.org/projects/scanexexpress&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please report bugs at &lt;a href=&quot;http://hub.qgis.org/projects/scanexexpress/issues&quot;&gt;bugtracker&lt;/a&gt;&lt;/p&gt;
+</source>
+        <translation>&lt;h2&gt;Экспресс Космоснимки&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Важно!&lt;/strong&gt; Пространственные данные, доступные в сервисе, являются
+результатами интеллектуальной деятельности, которым предоставлена правовая охрана.
+В случае заказа данных происходит заключение договора с компанией-поставщиком ИТЦ
+СКАНЭКС. Кроме использования в своих целях, заказчику передается право создания и
+распространения производных продуктов (например, картографических произведений),
+при условии, что это не связано с модификацией и распространением исходных данных.&lt;/p&gt;
+&lt;h3&gt;Использование сервиса&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Слой “Basic Coverage” представляет собою базовое покрытие &lt;a href=&quot;http://express.kosmosnimki.ru/?permalink=7POIV&quot;&gt;Kosmosnimki.Ru&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Вкладка “My Layers” позволяет осуществлять доступ к Вашим заказам с
+  использованием индивидуального ключа авторизации&lt;/li&gt;
+  &lt;li&gt;Самостоятельно подобрать интересующие Вас данные и сделать заказ вы можете,
+  зайдя на сервис &lt;a href=&quot;http://express.kosmosnimki.ru/&quot;&gt;каталога&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;После одобрения заказа и подписания договора, Вы получите письмо с
+  подтверждением об активации API-ключа, содержащее:
+  &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;ссылку на Вашу “личную карту пользователя”&lt;/li&gt;
+    &lt;li&gt;WMS ссылку для подключения списка слоев в ГИС&lt;/li&gt;
+    &lt;li&gt;возможность заказать дополнительные услуги по обработке данных и созданию
+    продуктов&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;За дополнительной информацией обращайтесь — &lt;a href=&quot;mailto:sales@scanex.ru&quot;&gt;sales@scanex.ru&lt;/a&gt;
+или +7 495 7397385 (отдел распространения данных ИТЦ СКАНЭКС)&lt;/p&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Разработчики&lt;/strong&gt;: &lt;a href=&quot;http://nextgis.org&quot;&gt;NextGIS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Домашняя страница&lt;/strong&gt;: &lt;a href=&quot;http://hub.qgis.org/projects/scanexexpress&quot;&gt;http://hub.qgis.org/projects/scanexexpress&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Для сообщения об ошибках используйте &lt;a href=&quot;http://hub.qgis.org/projects/scanexexpress/issues&quot;&gt;багтрекер&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

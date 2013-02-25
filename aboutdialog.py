@@ -96,4 +96,8 @@ modification and distribution of original data products.</p>
 <p>For the additional information please contact us:</p>
 <p><a href="mailto:sales@scanex.ru">sales@scanex.ru</a></p>
 <p>+7 495 7397385 (The department of data's distribution RDC ScanEx)</p>
+<br><br>
+<p><strong>Developers</strong>: <a href="http://nextgis.org">NextGIS</a></p>
+<p><strong>Homepage</strong>: <a href="http://hub.qgis.org/projects/scanexexpress">http://hub.qgis.org/projects/scanexexpress</a></p>
+<p>Please report bugs at <a href="http://hub.qgis.org/projects/scanexexpress/issues">bugtracker</a></p>
 """)
