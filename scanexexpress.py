@@ -47,8 +47,8 @@ class ScanexExpressPlugin:
       self.QgisVersion = unicode( QGis.qgisVersion )[ 0 ]
 
     # For i18n support
-    userPluginPath = QFileInfo( QgsApplication.qgisUserDbFilePath() ).path() + "/python/plugins/scanexexpress"
-    systemPluginPath = QgsApplication.prefixPath() + "/python/plugins/scanexexpress"
+    userPluginPath = QFileInfo( QgsApplication.qgisUserDbFilePath() ).path() + "/python/plugins/scanex_express"
+    systemPluginPath = QgsApplication.prefixPath() + "/python/plugins/scanex_express"
 
     overrideLocale = QSettings().value( "locale/overrideFlag", QVariant( False ) ).toBool()
     if not overrideLocale:
@@ -61,19 +61,18 @@ class ScanexExpressPlugin:
     else:
       translationPath = systemPluginPath + "/i18n/scanexexpress_" + localeFullName + ".qm"
 
-    self.localePath = translationPath
-    if QFileInfo( self.localePath ).exists():
+    if QFileInfo( translationPath ).exists():
       self.translator = QTranslator()
-      self.translator.load( self.localePath )
+      self.translator.load( translationPath )
       QCoreApplication.installTranslator( self.translator )
 
   def initGui( self ):
     if int( self.QgisVersion ) < 10800:
       qgisVersion = str( self.QgisVersion[ 0 ] ) + "." + str( self.QgisVersion[ 2 ] ) + "." + str( self.QgisVersion[ 3 ] )
       QMessageBox.warning( self.iface.mainWindow(),
-                           QCoreApplication.translate( "ScanexExpress", "ScanexExpress: Error" ),
+                           QCoreApplication.translate( "ScanexExpress", "Error" ),
                            QCoreApplication.translate( "ScanexExpress", "Quantum GIS %1 detected.\n" ).arg( qgisVersion ) +
-                           QCoreApplication.translate( "ScanexExpress", "This version of ScanexExpress requires at least QGIS version 1.8.0\nPlugin will not be enabled." ) )
+                           QCoreApplication.translate( "ScanexExpress", "This version of ScanexExpress requires at least QGIS version 1.9.0. Plugin will not be enabled." ) )
       return None
 
     self.loadBaseLayers = QAction( QCoreApplication.translate( "ScanexExpress", "Basic coverage" ), self.iface.mainWindow() )
@@ -83,7 +82,7 @@ class ScanexExpressPlugin:
 
     self.loadUserLayers = QAction( QCoreApplication.translate( "ScanexExpress", "My layers" ), self.iface.mainWindow() )
     self.iface.registerMainWindowAction( self.loadUserLayers, "Shift+U" )
-    self.loadUserLayers.setIcon( QIcon( ":/icons/add_layers2.png" ) )
+    self.loadUserLayers.setIcon( QIcon( ":/icons/add_layers.png" ) )
     self.loadUserLayers.setWhatsThis( "Add your layers to map" )
 
     self.showAboutDialog = QAction( QCoreApplication.translate( "ScanexExpress", "About ScanexExpress..." ), self.iface.mainWindow() )
@@ -111,7 +110,13 @@ class ScanexExpressPlugin:
     self.iface.removeWebToolBarIcon( self.loadUserLayers )
 
   def baseLayers( self ):
-    pass
+    url = "crs=EPSG:3395&featureCount=10&format=image/png&layers=C9458F2DCB754CEEACC54216C7D1EB0A&styles=&url=http://maps.kosmosnimki.ru/TileService.ashx/apikeySA7F1UIEY0"
+    layer = QgsRasterLayer( url,
+                            QCoreApplication.translate( "ScanexExpress", "Basic coverage Kosmosnimki.Ru"),
+                            "wms"
+                          )
+
+    QgsMapLayerRegistry.instance().addMapLayers( [ layer ] )
 
   def userLayers( self ):
     dlg = addlayersdialog.AddLayersDialog( self.iface )

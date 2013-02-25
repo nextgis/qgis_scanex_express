@@ -37,12 +37,9 @@ $(RES_FILES): $(RES_PATH)/%_rc.py: $(RES_PATH)/%.qrc
 
 clean:
 	rm -f $(ALL_FILES)
-	rm -f *.pyc
+	find -name "*.pyc" -exec rm -f {} \;
 	rm -f *.zip
 
 package:
 	cd .. && rm -f *.zip && zip -r scanex_express.zip scanex_express -x \*.pyc \*.ts \*.ui \*.qrc \*.pro \*~ \*.git\* \*Makefile*
 	mv ../scanex_express.zip .
-
-upload:
-	plugin_uploader.py scanex_express.zip

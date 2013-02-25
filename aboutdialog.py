@@ -44,7 +44,7 @@ class AboutDialog( QDialog, Ui_Dialog ):
     self.lblVersion.setText( self.tr( "Version: %1" ).arg( version() ) )
     doc = QTextDocument()
     doc.setHtml( self.getAboutText() )
-    self.textEdit.setDocument( doc )
+    self.textBrowser.setDocument( doc )
 
     self.buttonBox.helpRequested.connect( self.openHelp )
 
@@ -60,15 +60,44 @@ class AboutDialog( QDialog, Ui_Dialog ):
 
     localeShortName = localeFullName[ 0:2 ]
     if localeShortName in [ "ru", "uk" ]:
-      QDesktopServices.openUrl( QUrl( "http://hub.qgis.org/projects/geotagphotos/wiki" ) )
+      QDesktopServices.openUrl( QUrl( "http://scanex.ru" ) )
     else:
-      QDesktopServices.openUrl( QUrl( "http://hub.qgis.org/projects/geotagphotos/wiki" ) )
+      QDesktopServices.openUrl( QUrl( "http://scanex.ru" ) )
 
   def getAboutText( self ):
-    return self.tr( """<p>Tag and GeoTag photos and import them as a point vector layer.</p>
-<p>Plugin developed by Alexander Bruy for Faunalia (<a href="http://faunalia.eu">http://faunalia.eu</a>)</p>
-<p>NOTE: Geo-Tagging and Tagging capabilities rely on an external software
-called exiftool (<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">http://www.sno.phy.queensu.ca/~phil/exiftool/)</a></p>
-<p><strong>Homepage</strong>: <a href="http://hub.qgis.org/projects/geotagphotos">http://hub.qgis.org/projects/geotagphotos</a></p>
-<p>Please report bugs at <a href="http://hub.qgis.org/projects/geotagphotos/issues">http://hub.qgis.org/projects/geotagphotos/issues</a></p>
+    return self.tr( """<h2>Express Kosmosnimki</h2>
+<p><strong>Important!</strong> All spatial data products that are available
+within the service have the intellectual property copyright and under the
+legal protection. In case of commercial data use it is compulsory to sign an
+agreement with company-provider Research & Development Center "ScanEx". The
+customer is granted with a right to use the data for his or her purposes and
+for creation and distribution of derivative products (for instance,
+cartographical products), provided that it does not have anything with
+modification and distribution of original data products.</p>
+<h3>Usage of the service</h3>
+<ol>
+  <li>The layer "Basic coverage Kosmosnimki.ru" represents free satellite
+  imagery coverage</li>
+  <li>Option "My Layers" allows getting an access to your data orders with
+  the authorization key</li>
+  <li>By yourself you can select the data you are looking for and make and
+  order going onto the service of <a href="http://express.kosmosnimki.ru/">Express Kosmosnimki’s catalog</a></li>
+  <li>After the approval of an order and signing of an agreement you will
+  receive an email with confirmation that your personal key has been
+  activated. The email contains the following information:
+    <ul>
+      <li>A link to your "User’s personal map" on the web-service;</li>
+      <li>WMS/WFS link for connection of layers into GIS;</li>
+      <li>A possibility to order additional services of data’s processing
+      and products' creation.</li>
+    <ul>
+  </li>
+</ol>
+<p>For the additional information please contact us:</p>
+<p><a href="mailto:sales@scanex.ru">sales@scanex.ru</a></p>
+<p>+7 495 7397385 (The department of data's distribution RDC ScanEx)</p>
+<br><br>
+<p><strong>Developers</strong>: <a href="http://nextgis.org">NextGIS</a></p>
+<p><strong>Homepage</strong>: <a href="http://hub.qgis.org/projects/scanexexpress">http://hub.qgis.org/projects/scanexexpress</a></p>
+<p>Please report bugs at <a href="http://hub.qgis.org/projects/scanexexpress/issues">bugtracker</a></p>
 """)
