@@ -1,6 +1,6 @@
 ScanexExpress
 -------------
-Integreates Scanex Express service in QGIS
+Integrates Scanex Express service in QGIS
 
 Plugin allows to load basic coverage from service Kosmosnimki.Ru and provides
 easy to use interface for adding ordered layers.
